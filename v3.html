@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mirador Villas — вилла из света · 6 вилл от $129 000</title>
+<link rel="canonical" href="https://domabali.com/projects/mirador/">
+<meta name="description" content="Mirador Villas: приватный комплекс из 6 вилл на Бали от $129 000. Leasehold 25 + 15 лет, сдача в сентябре 2027. Проект, собранный из света.">
+<meta property="og:title" content="Mirador Villas — 6 вилл на Бали от $129 000">
+<meta property="og:description" content="50 000 частиц света собирают виллу, генплан и цену. Leasehold 25 + 15 лет, жилая зона R3, сдача сентябрь 2027.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23193741'/><text x='50' y='72' font-size='60' text-anchor='middle' fill='%23eac486' font-family='Georgia'>M</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--slate:#193741;--slate2:#1d414d;--gold:#eac486;--goldD:#a97c3c;--paper:#ffffff;--parch:#ebe7e1;--hair:rgba(255,255,255,.28);--hairD:rgba(25,55,65,.25)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Manrope',sans-serif;background:var(--slate);color:var(--paper);overflow-x:hidden;-webkit-font-smoothing:antialiased;font-size:16px;line-height:1.4}
+h1,h2,h3{font-family:'Playfair Display',serif;font-weight:600}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--gold);color:var(--slate)}
+
+#veil{position:fixed;inset:0;z-index:300;background:var(--slate);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;transition:opacity .8s,visibility .8s}
+#veil.off{opacity:0;visibility:hidden}
+#veil .vt{font-family:'Playfair Display',serif;font-size:clamp(36px,7vw,68px);letter-spacing:.16em}
+#veil .vs{color:var(--gold);letter-spacing:.42em;font-size:11px;text-transform:uppercase}
+
+#world{position:fixed;inset:0;z-index:1}
+.vignette{position:fixed;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse at center,transparent 55%,rgba(10,24,30,.6) 100%)}
+.grain{position:fixed;inset:-50%;z-index:3;pointer-events:none;opacity:.04;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='300' height='300' filter='url(%23n)' opacity='.6'/></svg>")}
+
+header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px clamp(18px,4vw,48px);transition:background .4s;background:linear-gradient(180deg,rgba(15,32,40,.5),transparent)}
+header.scrolled{background:var(--slate);border-bottom:1px solid var(--hair)}
+header img{height:28px}
+nav{display:flex;gap:26px;align-items:center}
+nav a{font-size:11.5px;font-weight:600;letter-spacing:.167em;text-transform:uppercase;opacity:.88}
+nav a:hover{color:var(--gold);opacity:1}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 30px;border-radius:80px;font-weight:600;font-size:12px;letter-spacing:.167em;text-transform:uppercase;border:1.5px solid var(--hairD);cursor:pointer;min-height:44px;transition:background .35s,color .35s,border-color .35s;background:transparent;color:var(--slate)}
+.btn:hover{background:var(--slate);color:#fff;border-color:var(--slate)}
+.btn.ghost{border-color:#fff;color:#fff}
+.btn.ghost:hover{background:#fff;color:var(--slate)}
+#burger{display:none;background:none;border:0;cursor:pointer;width:44px;height:44px;z-index:120}
+#burger span{display:block;width:26px;height:2px;background:var(--paper);margin:6px auto;transition:.35s}
+body.menu-open #burger span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+body.menu-open #burger span:nth-child(2){opacity:0}
+body.menu-open #burger span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+#mnav{position:fixed;inset:0;z-index:110;background:rgba(25,55,65,.97);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;clip-path:circle(0 at calc(100% - 40px) 40px);transition:clip-path .6s cubic-bezier(.7,0,.3,1);visibility:hidden}
+body.menu-open #mnav{clip-path:circle(150% at calc(100% - 40px) 40px);visibility:visible}
+#mnav a{font-family:'Playfair Display',serif;font-size:28px;padding:10px}
+#mnav a em{color:var(--gold);font-style:normal}
+
+main{position:relative;z-index:10}
+.beat{min-height:100vh;display:flex;align-items:center;padding:0 clamp(18px,5vw,60px);position:relative}
+.beat.tall{min-height:150vh}
+.beat .card{max-width:560px;opacity:0;transform:translateY(40px)}
+.beat.right{justify-content:flex-end}
+.beat.center{justify-content:center;text-align:center}
+.beat.center .card{max-width:760px}
+.beat.center h1,.beat.center h2,.beat.center p,.beat.center .kicker{text-shadow:0 2px 24px rgba(10,24,30,.9),0 1px 4px rgba(10,24,30,.75)}
+.glass{background:var(--parch);color:var(--slate);border:1px solid var(--hairD);border-radius:2px;padding:clamp(28px,3.6vw,48px)}
+.glass h2{color:var(--slate)}
+.glass p{color:rgba(25,55,65,.78)}
+.glass .kicker{color:var(--goldD)}
+.kicker{color:var(--gold);letter-spacing:.167em;font-size:12px;text-transform:uppercase;font-weight:600;margin-bottom:16px}
+.beat h1{font-size:clamp(38px,6.4vw,76px);line-height:1.08}
+.beat h1 em,.beat h2 em{font-style:italic;color:var(--gold)}
+.glass h2 em{color:var(--goldD)}
+.beat h2{font-size:clamp(28px,4vw,48px);line-height:1.12;margin-bottom:14px}
+.beat p{color:rgba(255,255,255,.85);line-height:1.7;font-size:clamp(14.5px,1.3vw,17px)}
+.glass p{color:rgba(25,55,65,.78)}
+.beat .cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.chips span{border:1px solid var(--hairD);border-radius:80px;padding:8px 18px;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--slate)}
+.beat.center .chips{justify-content:center}
+.beat.center .chips span{border-color:var(--hair);color:#fff}
+.scroll-hint{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);color:rgba(255,255,255,.65);font-size:10.5px;letter-spacing:.34em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:10px}
+.scroll-hint:after{content:'';width:1px;height:46px;background:linear-gradient(var(--gold),transparent);animation:drip 1.8s infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}55%{transform:scaleY(1);transform-origin:top}56%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+.v-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
+.v-mini{background:#fff;border:1px solid var(--hairD);border-radius:2px;padding:22px}
+.v-mini .vn{font-size:10.5px;letter-spacing:.167em;text-transform:uppercase;color:var(--goldD);font-weight:600}
+.v-mini h3{font-size:19px;margin:8px 0 2px;color:var(--slate)}
+.v-mini .pr{font-family:'Playfair Display',serif;color:var(--slate);font-size:22px;margin-bottom:8px;white-space:nowrap}
+.v-mini small{color:rgba(25,55,65,.65);font-size:12.5px;line-height:1.5;display:block}
+
+.docs{display:flex;flex-direction:column;gap:14px;margin-top:22px}
+.docs .d{display:flex;gap:14px;align-items:flex-start}
+.docs .n{font-family:'Playfair Display',serif;color:var(--goldD);min-width:30px;font-size:17px}
+.docs b{display:block;font-size:15.5px;margin-bottom:3px;color:var(--slate)}
+.docs p{font-size:13.5px;color:rgba(25,55,65,.72);line-height:1.55}
+
+.form input{width:100%;background:#fff;border:1px solid var(--hairD);color:var(--slate);border-radius:2px;padding:15px 17px;font-size:15px;margin-bottom:12px;font-family:inherit}
+.form input:focus{outline:none;border-color:var(--slate)}
+.form input::placeholder{color:rgba(25,55,65,.45)}
+.form .btn{width:100%}
+.form small{display:block;color:rgba(25,55,65,.55);font-size:11.5px;line-height:1.5;margin-top:12px;text-align:center}
+.form small a{text-decoration:underline}
+.msgr{display:flex;gap:12px;margin-top:16px}
+.msgr a{flex:1;text-align:center;padding:13px;border-radius:80px;border:1px solid var(--hairD);font-weight:600;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);display:flex;align-items:center;justify-content:center;min-height:44px;transition:background .35s,color .35s}
+.msgr a:hover{background:var(--slate);color:#fff}
+
+.tail{position:relative;z-index:10;background:var(--parch);color:var(--slate);border-top:1px solid var(--hairD)}
+.tail .kicker{color:var(--goldD)}
+.tail .wrap{max-width:900px;margin:0 auto;padding:clamp(60px,8vw,100px) clamp(18px,5vw,48px)}
+.faq details{border-bottom:1px solid var(--hairD)}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 4px;font-weight:700;font-size:16px;min-height:44px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .x{flex:0 0 28px;height:28px;border-radius:50%;border:1px solid var(--slate);color:var(--slate);display:flex;align-items:center;justify-content:center;font-size:16px;transition:transform .35s}
+.faq details[open] summary .x{transform:rotate(45deg)}
+.faq .a{color:rgba(25,55,65,.75);line-height:1.7;font-size:14.5px;padding:0 40px 22px 4px}
+footer{padding:56px 40px;text-align:center;font-size:13px;line-height:2;background:var(--slate);color:rgba(255,255,255,.7)}
+footer img{height:24px;margin:0 auto 10px;display:block}
+footer a{color:var(--gold)}
+
+@media(max-width:1000px){
+  nav{display:none}
+  #burger{display:block}
+  .v-row{grid-template-columns:1fr}
+  .beat .card{max-width:100%}
+  .beat.right{justify-content:center}
+}
+@media(prefers-reduced-motion:reduce){.scroll-hint:after{animation:none}}
+</style>
+</head>
+<body>
+
+<div id="veil">
+  <div class="vt">MIRADOR</div>
+  <div class="vs">Вилла из света</div>
+</div>
+
+<div id="world" aria-hidden="true"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<header id="hdr">
+  <a href="#top" aria-label="DOMA"><img src="img/logo-white.svg" alt="DOMA"></a>
+  <nav>
+    <a href="#about">О проекте</a><a href="#villas">Виллы</a><a href="#law">Условия</a><a href="#faq">Вопросы</a>
+    <a class="btn ghost" href="#lead" style="padding:10px 22px">Презентация</a>
+  </nav>
+  <button id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+</header>
+<div id="mnav">
+  <a href="#about">О проекте</a><a href="#villas"><em>Виллы</em></a><a href="#law">Условия</a><a href="#faq">Вопросы</a><a href="#lead"><em>Презентация</em></a>
+</div>
+
+<main id="top">
+
+  <section class="beat center" id="hero" data-shape="0">
+    <div class="card">
+      <div class="kicker">Бали · Убуд · 6 вилл от $129 000</div>
+      <h1>Проект, собранный <em>из света</em></h1>
+      <p style="margin-top:18px">Двадцать пять тысяч частиц соберут для вас Mirador: силуэт виллы, генплан участка, цену и дату ключей. Скрольте — свет слушается.</p>
+      <div class="cta" style="justify-content:center">
+        <a class="btn ghost" href="#lead">Получить презентацию</a>
+        <a class="btn ghost" style="border-color:rgba(255,255,255,.4)" href="#villas">К виллам</a>
+      </div>
+    </div>
+    <div class="scroll-hint">скрольте</div>
+  </section>
+
+  <section class="beat tall" id="about" data-shape="1">
+    <div class="card">
+      <div class="glass">
+        <div class="kicker">01 · Силуэт</div>
+        <h2>Вилла рождается <em>у вас на глазах</em></h2>
+        <p>Двухэтажная вилла с бассейном в 10 минутах от центра Убуда, с видом на каньон. Земля — «жёлтая» жилая зона R3: целевое назначение для жилой застройки, без рисков туристических зон.</p>
+        <div class="chips"><span>Leasehold 25 + 15 лет</span><span>KKPR получен</span><span>Due Diligence пройден</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="beat tall right" id="villas" data-shape="2">
+    <div class="card">
+      <div class="glass">
+        <div class="kicker">02 · Генплан</div>
+        <h2>Шесть участков — <em>три формата</em></h2>
+        <p>Частицы выстроили генплан: камерный комплекс, у каждой виллы свой участок от 112 до 235 м². Цены — напрямую от застройщика.</p>
+        <div class="v-row">
+          <div class="v-mini"><div class="vn">Villa 1 · флагман</div><h3>3 спальни</h3><div class="pr">$239 000</div><small>Участок 235 м² · дом 144 м²</small></div>
+          <div class="v-mini"><div class="vn">Villa 2 · 3 · 4</div><h3>2 спальни</h3><div class="pr">$139 000</div><small>Участок от 116 м² · дом 72 м²</small></div>
+          <div class="v-mini"><div class="vn">Villa 5 · 6</div><h3>1 спальня</h3><div class="pr">$129 000</div><small>Участок от 112 м² · дом 72 м²</small></div>
+        </div>
+        <div class="cta"><a class="btn" href="#lead">Запросить планировки</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="beat tall" id="law" data-shape="3">
+    <div class="card">
+      <div class="glass">
+        <div class="kicker">03 · Цена входа</div>
+        <h2>Документы открыты <em>до сделки</em></h2>
+        <div class="docs">
+          <div class="d"><div class="n">01</div><div><b>Due Diligence</b><p>Юридическая проверка земли и собственника проведена — отчёт передаём по запросу.</p></div></div>
+          <div class="d"><div class="n">02</div><div><b>KKPR и PBG</b><p>Разрешение на использование земли получено, разрешение на строительство — в оформлении.</p></div></div>
+          <div class="d"><div class="n">03</div><div><b>Оплата по этапам</b><p>Платежи привязаны к ходу стройки. Отчёты каждые 2 недели. Финальный платёж — при передаче ключей.</p></div></div>
+        </div>
+        <div class="chips"><span>DOMA · девелопер с 2022</span><span>30+ вилл в портфеле</span><span>87% заполняемость</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="beat tall center" id="night" data-shape="4">
+    <div class="card">
+      <div class="kicker">04 · Дата ключей</div>
+      <h2 style="font-size:clamp(32px,5vw,58px)">Сентябрь 2027.<br><em>Свет собирается в дом.</em></h2>
+      <p>Вилла передаётся с мебелью и техникой — готовая к аренде с первого дня.</p>
+    </div>
+  </section>
+
+  <section class="beat" id="lead" data-shape="5">
+    <div class="card" style="max-width:520px;margin:0 auto">
+      <div class="glass form">
+        <div class="kicker">Презентация проекта</div>
+        <h2 style="font-size:clamp(24px,3vw,34px)">Получите презентацию, планировки и условия</h2>
+        <p style="margin-bottom:20px;font-size:14px">Пришлём полный пакет в WhatsApp или Telegram — без навязчивых звонков.</p>
+        <form onsubmit="event.preventDefault();alert('Форма будет подключена к Telegram/CRM');">
+          <input type="text" placeholder="Ваше имя" required>
+          <input type="tel" placeholder="WhatsApp или @telegram" required>
+          <button class="btn" type="submit">Получить пакет</button>
+          <small>Нажимая кнопку, вы соглашаетесь с <a href="https://doma-build.com/politic" target="_blank" rel="noopener">политикой конфиденциальности</a>.</small>
+        </form>
+        <div class="msgr">
+          <a href="https://wa.me/6282340789243" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="https://t.me/+6282340789243" target="_blank" rel="noopener">Telegram</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="tail">
+  <div class="wrap" id="faq">
+    <div class="kicker">Вопросы</div>
+    <h2 style="font-size:clamp(26px,3.6vw,40px);margin-bottom:26px">Частые вопросы</h2>
+    <div class="faq">
+      <details><summary>Что такое leasehold 25 + 15 лет?<span class="x">+</span></summary><div class="a">Долгосрочная аренда земли — стандартный формат владения для иностранцев в Индонезии. Базовый срок 25 лет, ещё 15 лет гарантированного продления зафиксированы в договоре: суммарно 40 лет.</div></details>
+      <details><summary>Что значит «жёлтая зона R3»?<span class="x">+</span></summary><div class="a">Зонирование определяет, что можно строить на земле. R3 — жилая застройка: виллы здесь строятся полностью легально, без рисков туристических зон.</div></details>
+      <details><summary>Когда будет готов комплекс?<span class="x">+</span></summary><div class="a">Плановая сдача — сентябрь 2027 года. Оплата поэтапная, привязана к ходу строительства, финальный платёж — при подписании акта приёма-передачи.</div></details>
+      <details><summary>Можно ли изменить планировку?<span class="x">+</span></summary><div class="a">Да. Вместо двух компактных вилл на смежных участках можно построить одну просторную с тремя спальнями.</div></details>
+      <details><summary>Какие документы можно проверить?<span class="x">+</span></summary><div class="a">Отчёт Due Diligence по земле, KKPR, статус PBG, основной договор, авансовое соглашение и приложения по вашему типу виллы.</div></details>
+    </div>
+  </div>
+  <footer>
+    <img src="img/logo-white.svg" alt="DOMA">
+    <div>Mirador Villas — проект компании <a href="https://doma-build.com" target="_blank" rel="noopener">DOMA</a> · <a href="https://wa.me/6282340789243">WhatsApp</a> · <a href="https://t.me/+6282340789243">Telegram</a></div>
+    <div style="opacity:.55">Не является публичной офертой · © 2026</div>
+  </footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+/* ==================== MIRADOR · PARTICLES ==================== */
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const mobile = matchMedia('(max-width: 1000px)').matches;
+const webgl = (()=>{try{const c=document.createElement('canvas');return !!(window.WebGLRenderingContext&&(c.getContext('webgl')||c.getContext('experimental-webgl')))}catch(e){return false}})();
+
+const hdr=document.getElementById('hdr');
+addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>40),{passive:true});
+document.getElementById('burger').onclick=()=>document.body.classList.toggle('menu-open');
+document.querySelectorAll('#mnav a').forEach(a=>a.onclick=()=>document.body.classList.remove('menu-open'));
+
+const veil=document.getElementById('veil');
+function dropVeil(){if(!document.getElementById('veil'))return;veil.classList.add('off');setTimeout(()=>veil.remove(),900)}
+setTimeout(dropVeil,5000);
+
+if(!webgl || reduced){
+  document.getElementById('world').style.background='radial-gradient(ellipse at 50% 35%,#24505e 0%,#193741 55%,#122b34 100%)';
+  document.querySelectorAll('.beat .card').forEach(c=>{c.style.opacity=1;c.style.transform='none'});
+  dropVeil();
+}
+
+if(webgl && !reduced && typeof THREE!=='undefined'){
+gsap.registerPlugin(ScrollTrigger);
+
+const N = mobile? 12000 : 25000;
+const W=document.getElementById('world');
+const renderer=new THREE.WebGLRenderer({antialias:false,alpha:false,powerPreference:'high-performance'});
+renderer.setPixelRatio(Math.min(devicePixelRatio,mobile?1.5:2));
+renderer.setSize(innerWidth,innerHeight);
+renderer.setClearColor('#16323c');
+W.appendChild(renderer.domElement);
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(50,innerWidth/innerHeight,.1,500);
+camera.position.set(0,0,120);
+
+/* --- сэмплер фигур с offscreen-canvas --- */
+const CW=560,CH=300;
+const cnv=document.createElement('canvas');cnv.width=CW;cnv.height=CH;
+const ctx=cnv.getContext('2d',{willReadFrequently:true});
+const WORLD_W=150; /* ширина сцены в юнитах */
+function samplePoints(draw,n,zJit){
+  ctx.clearRect(0,0,CW,CH);
+  ctx.fillStyle='#fff';ctx.strokeStyle='#fff';
+  draw(ctx);
+  const img=ctx.getImageData(0,0,CW,CH).data;
+  const pts=[];
+  for(let y=0;y<CH;y+=2)for(let x=0;x<CW;x+=2){
+    if(img[(y*CW+x)*4+3]>120)pts.push([x,y]);
+  }
+  const out=new Float32Array(n*3);
+  const k=WORLD_W/CW;
+  for(let i=0;i<n;i++){
+    const p=pts[(Math.random()*pts.length)|0]||[CW/2,CH/2];
+    out[i*3]=(p[0]-CW/2)*k+(Math.random()-.5)*.6;
+    out[i*3+1]=-(p[1]-CH/2)*k+(Math.random()-.5)*.6;
+    out[i*3+2]=(Math.random()-.5)*zJit;
+  }
+  return out;
+}
+function textShape(text,font,n,zJit){
+  return samplePoints(c=>{
+    c.font=font;c.textAlign='center';c.textBaseline='middle';
+    c.fillText(text,CW/2,CH/2);
+  },n,zJit);
+}
+function villaShape(n){
+  return samplePoints(c=>{
+    /* платформа */ c.fillRect(60,236,420,10);
+    /* 1 этаж */ c.fillRect(120,166,260,70);
+    /* 2 этаж */ c.fillRect(136,100,228,60);
+    /* крыша-консоль */ c.fillRect(104,84,292,12);
+    /* окна: вырезы */ c.globalCompositeOperation='destination-out';
+    c.fillRect(150,180,60,40);c.fillRect(240,180,60,40);c.fillRect(166,114,50,32);c.fillRect(250,114,50,32);
+    c.globalCompositeOperation='source-over';
+    /* бассейн */ c.fillRect(392,222,96,10);
+    /* пальма */ c.beginPath();c.moveTo(70,236);c.quadraticCurveTo(64,180,78,150);c.lineWidth=6;c.stroke();
+    c.lineWidth=5;
+    c.beginPath();c.moveTo(78,150);c.quadraticCurveTo(46,138,30,150);c.stroke();
+    c.beginPath();c.moveTo(78,150);c.quadraticCurveTo(56,124,36,122);c.stroke();
+    c.beginPath();c.moveTo(78,150);c.quadraticCurveTo(100,124,120,124);c.stroke();
+    c.beginPath();c.moveTo(78,150);c.quadraticCurveTo(110,140,124,152);c.stroke();
+  },n,6);
+}
+function planShape(n){
+  return samplePoints(c=>{
+    c.lineWidth=5;
+    const plot=(x,y,w,h)=>{c.strokeRect(x,y,w,h);c.fillRect(x+w/2-14,y+h/2-9,28,18)};
+    /* дорога-дуга */
+    c.beginPath();c.moveTo(40,270);c.quadraticCurveTo(280,190,520,262);c.lineWidth=8;c.stroke();c.lineWidth=5;
+    /* 6 участков: флагман + 5 */
+    plot(60,60,120,90);
+    plot(200,50,90,70);plot(310,50,90,70);plot(420,54,86,70);
+    plot(220,140,86,66);plot(330,140,86,66);
+    /* река */
+    c.beginPath();c.moveTo(20,40);c.quadraticCurveTo(60,150,30,290);c.lineWidth=10;c.stroke();
+  },n,8);
+}
+const shapes=[];
+let ready=false;
+function buildShapes(){
+  shapes[0]=textShape('MIRADOR',`600 ${mobile?86:96}px 'Playfair Display', Georgia, serif`,N,10);
+  shapes[1]=villaShape(N);
+  shapes[2]=planShape(N);
+  shapes[3]=textShape('$129 000',`600 ${mobile?88:104}px 'Playfair Display', Georgia, serif`,N,10);
+  shapes[4]=textShape('09 · 2027',`600 ${mobile?88:104}px 'Playfair Display', Georgia, serif`,N,10);
+  shapes[5]=textShape('M',`600 240px 'Playfair Display', Georgia, serif`,N,14);
+  ready=true;
+}
+
+/* --- частицы --- */
+const pos=new Float32Array(N*3),col=new Float32Array(N*3),vel=new Float32Array(N*3),spd=new Float32Array(N),seed=new Float32Array(N);
+const gold=new THREE.Color('#eac486'),warm=new THREE.Color('#d9a75f'),pale=new THREE.Color('#f6ead2');
+for(let i=0;i<N;i++){
+  pos[i*3]=(Math.random()-.5)*260;pos[i*3+1]=(Math.random()-.5)*160;pos[i*3+2]=(Math.random()-.5)*80;
+  const r=Math.random(),c=r<.12?pale:(r<.5?gold:warm);
+  col[i*3]=c.r;col[i*3+1]=c.g;col[i*3+2]=c.b;
+  spd[i]=2.2+Math.random()*3.4;
+  seed[i]=Math.random()*1000;
+}
+const geo=new THREE.BufferGeometry();
+geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+geo.setAttribute('color',new THREE.BufferAttribute(col,3));
+function dotTexture(){
+  const c=document.createElement('canvas');c.width=c.height=64;
+  const g=c.getContext('2d');
+  const r=g.createRadialGradient(32,32,2,32,32,30);
+  r.addColorStop(0,'rgba(255,255,255,1)');r.addColorStop(.4,'rgba(255,255,255,.6)');r.addColorStop(1,'rgba(255,255,255,0)');
+  g.fillStyle=r;g.fillRect(0,0,64,64);
+  return new THREE.CanvasTexture(c);
+}
+const mat=new THREE.PointsMaterial({size:mobile?1.5:1.35,map:dotTexture(),vertexColors:true,transparent:true,opacity:.9,depthWrite:false,blending:THREE.AdditiveBlending,sizeAttenuation:true});
+const cloud=new THREE.Points(geo,mat);
+scene.add(cloud);
+
+/* --- целевая фигура по секциям --- */
+let shape=0;
+document.querySelectorAll('.beat').forEach(b=>{
+  const idx=+b.dataset.shape;
+  ScrollTrigger.create({trigger:b,start:'top 55%',end:'bottom 45%',
+    onEnter:()=>shape=idx,onEnterBack:()=>shape=idx});
+});
+/* карточки */
+gsap.utils.toArray('.beat .card').forEach(card=>{
+  gsap.fromTo(card,{opacity:0,y:40},{opacity:1,y:0,duration:.9,ease:'power3.out',
+    scrollTrigger:{trigger:card.closest('.beat'),start:'top 62%',end:'bottom 30%',toggleActions:'play reverse play reverse'}});
+});
+
+/* --- мышь --- */
+const mouse=new THREE.Vector2(-99,-99);let mWorld={x:9999,y:9999};
+addEventListener('pointermove',e=>{
+  mouse.x=(e.clientX/innerWidth)*2-1;mouse.y=-(e.clientY/innerHeight)*2+1;
+},{passive:true});
+
+/* --- рендер --- */
+let t0=performance.now(),frame=0;
+function render(now){
+  requestAnimationFrame(render);
+  const dt=Math.min(.05,(now-t0)/1000);t0=now;
+  const time=now*.001;
+  /* мышь в мировых координатах на плоскости z=0 */
+  const vFov=camera.fov*Math.PI/180;
+  const hH=Math.tan(vFov/2)*camera.position.z;
+  mWorld.x=mouse.x*hH*camera.aspect;mWorld.y=mouse.y*hH;
+  const tgt=ready?shapes[shape]:null;
+  const p=geo.attributes.position.array;
+  for(let i=0;i<N;i++){
+    const ix=i*3;
+    let tx,ty,tz;
+    if(tgt){tx=tgt[ix];ty=tgt[ix+1];tz=tgt[ix+2]}
+    else{tx=p[ix];ty=p[ix+1];tz=p[ix+2]}
+    /* лёгкое дыхание */
+    const s=seed[i];
+    tx+=Math.sin(time*.7+s)*.5;ty+=Math.cos(time*.6+s*1.3)*.5;
+    /* пружина к цели */
+    const k=spd[i];
+    vel[ix]+=(tx-p[ix])*k*dt;vel[ix+1]+=(ty-p[ix+1])*k*dt;vel[ix+2]+=(tz-p[ix+2])*k*dt;
+    /* отталкивание от курсора */
+    const dx=p[ix]-mWorld.x,dy=p[ix+1]-mWorld.y;
+    const d2=dx*dx+dy*dy;
+    if(d2<144){const f=(144-d2)/144*14*dt/(Math.sqrt(d2)+.001);vel[ix]+=dx*f;vel[ix+1]+=dy*f}
+    const damp=Math.pow(.0018,dt); /* ~0.9 при 60fps */
+    vel[ix]*=damp;vel[ix+1]*=damp;vel[ix+2]*=damp;
+    p[ix]+=vel[ix]*dt*6;p[ix+1]+=vel[ix+1]*dt*6;p[ix+2]+=vel[ix+2]*dt*6;
+  }
+  geo.attributes.position.needsUpdate=true;
+  /* параллакс камеры */
+  camera.position.x+=(mouse.x*6-camera.position.x)*.03;
+  camera.position.y+=(mouse.y*4-camera.position.y)*.03;
+  camera.lookAt(0,0,0);
+  cloud.rotation.y=Math.sin(time*.1)*.05;
+  renderer.render(scene,camera);
+  if(frame++===2)setTimeout(dropVeil,600);
+}
+if(document.fonts&&document.fonts.ready){document.fonts.ready.then(()=>{buildShapes()});setTimeout(()=>{if(!ready)buildShapes()},2500)}
+else buildShapes();
+requestAnimationFrame(render);
+
+addEventListener('resize',()=>{
+  camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth,innerHeight);
+});
+}
+</script>
+</body>
+</html>
