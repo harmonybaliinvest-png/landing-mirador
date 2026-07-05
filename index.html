@@ -479,9 +479,13 @@ const mobile = matchMedia('(max-width: 1000px)').matches;
 /* видео-герой: плавно проявляем, когда готово к воспроизведению */
 const hv=document.querySelector('.hero-video');
 if(hv){
-  const onReady=()=>hv.classList.add('on');
-  hv.readyState>=3?onReady():hv.addEventListener('canplay',onReady,{once:true});
-  hv.addEventListener('error',()=>hv.remove(),{once:true});
+  const slowNet=navigator.connection&&/2g|3g/.test(navigator.connection.effectiveType||'');
+  if(matchMedia('(max-width:1000px)').matches||slowNet){hv.remove()} /* мобиле — лёгкий градиент */
+  else{
+    const onReady=()=>hv.classList.add('on');
+    hv.readyState>=3?onReady():hv.addEventListener('canplay',onReady,{once:true});
+    hv.addEventListener('error',()=>hv.remove(),{once:true});
+  }
 }
 
 /* если когда-нибудь зальют img/hero.jpg — подхватываем автоматически */
