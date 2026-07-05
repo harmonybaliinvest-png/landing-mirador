@@ -75,6 +75,8 @@ body.menu-open #mnav{clip-path:circle(150% at calc(100% - 40px) 40px);visibility
 /* ---------- герой ---------- */
 .hero{position:relative;height:100vh;min-height:640px;overflow:hidden;background:var(--ink)}
 .hero-bg{position:absolute;inset:-6% 0;background:linear-gradient(175deg,#0c1a16 0%,#12302a 34%,#1d4a35 58%,#3d6b47 78%,#0f1e1a 100%);background-size:cover;background-position:center;will-change:transform}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s}
+.hero-video.on{opacity:1}
 .hero-bg .sun{position:absolute;left:50%;top:34%;width:min(46vw,420px);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(224,192,132,.55) 0%,rgba(224,192,132,.18) 42%,transparent 70%);filter:blur(2px);animation:sunbreathe 7s ease-in-out infinite}
 @keyframes sunbreathe{50%{transform:translate(-50%,-52%) scale(1.06);opacity:.85}}
 .hero-scape{position:absolute;left:0;right:0;bottom:-2px;width:100%;height:auto;pointer-events:none}
@@ -267,6 +269,7 @@ footer a{color:var(--gold2)}
 
 <section class="hero" id="top">
   <div class="hero-bg" aria-hidden="true">
+    <video class="hero-video" autoplay muted loop playsinline preload="auto" src="https://d8j0ntlcm91z4.cloudfront.net/user_3DG2ADYKZjBnUlmPEEwGYnumm2C/hf_20260705_163416_00f54275-7201-407b-b98e-1ce82e368c17.mp4"></video>
     <div class="sun"></div>
     <svg class="hero-scape" viewBox="0 0 1440 260" preserveAspectRatio="none" aria-hidden="true">
       <path class="far" d="M0 260 L0 150 Q180 100 360 130 T720 110 Q900 95 1080 125 T1440 105 L1440 260 Z"/>
@@ -472,6 +475,14 @@ footer a{color:var(--gold2)}
 <script>
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const mobile = matchMedia('(max-width: 1000px)').matches;
+
+/* видео-герой: плавно проявляем, когда готово к воспроизведению */
+const hv=document.querySelector('.hero-video');
+if(hv){
+  const onReady=()=>hv.classList.add('on');
+  hv.readyState>=3?onReady():hv.addEventListener('canplay',onReady,{once:true});
+  hv.addEventListener('error',()=>hv.remove(),{once:true});
+}
 
 /* если когда-нибудь зальют img/hero.jpg — подхватываем автоматически */
 const probe = new Image();
