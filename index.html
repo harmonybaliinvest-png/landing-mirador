@@ -531,6 +531,16 @@ gsap.registerPlugin(ScrollTrigger);
 /* прелоадер → герой */
 const veil = document.getElementById('veil');
 const intro = gsap.timeline({onComplete:()=>veil.remove()});
+/* страховка: если rAF заторможен (слабые устройства, фоновые вкладки) — снимаем занавес принудительно */
+setTimeout(()=>{
+  if (document.getElementById('veil')){
+    intro.progress(1).kill();
+    document.getElementById('veil')?.remove();
+    gsap.set('.rv-hero',{opacity:1,y:0});
+    gsap.set('#h1 .w i',{y:0});
+    gsap.set('.hero-bg',{scale:1});
+  }
+},4500);
 if (reduced){ veil.remove(); gsap.set('.rv-hero, #h1 .w i',{clearProps:'all'}); document.querySelectorAll('#h1 .w i').forEach(i=>i.style.transform='none'); }
 else {
   gsap.set('.rv-hero',{opacity:0,y:26});
