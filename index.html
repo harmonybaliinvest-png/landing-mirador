@@ -16,385 +16,614 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#0f1e1a;          /* тёмно-зелёный, почти чёрный */
-  --forest:#173830;
-  --jade:#2b6b58;
-  --sand:#f4efe6;         /* слоновая кость */
-  --sand-2:#eae2d3;
-  --gold:#c8a45c;
-  --gold-2:#e2c688;
-  --muted:#68766f;
-  --white:#fdfcf9;
+  --ink:#0f1e1a; --ink2:#16281f; --gold:#c8a45c; --gold2:#e0c084;
+  --paper:#faf7f1; --cream:#f1ead9; --mut:#5e6d62; --line:rgba(200,164,92,.25);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:'Manrope',system-ui,sans-serif;background:var(--sand);color:var(--ink);line-height:1.65;overflow-x:hidden}
-h1,h2,h3,.serif{font-family:'Playfair Display',serif;font-weight:600;line-height:1.15}
-.container{max-width:1160px;margin:0 auto;padding:0 24px}
-section{padding:96px 0}
-.kicker{display:inline-flex;align-items:center;gap:10px;font-size:.78rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--jade);margin-bottom:18px}
-.kicker::before{content:"";width:34px;height:1px;background:var(--gold)}
-h2{font-size:clamp(1.9rem,4vw,2.7rem);margin-bottom:14px}
-.lead{color:var(--muted);max-width:620px;font-size:1.05rem}
-.btn{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--white);padding:17px 38px;border-radius:999px;font-weight:700;font-size:.98rem;text-decoration:none;border:none;cursor:pointer;transition:transform .25s,box-shadow .25s,background .25s}
-.btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(15,30,26,.25)}
-.btn.gold{background:linear-gradient(120deg,var(--gold),var(--gold-2));color:var(--ink)}
-.btn .arr{transition:transform .25s}
-.btn:hover .arr{transform:translateX(4px)}
+body{font-family:'Manrope',sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.serif{font-family:'Playfair Display',serif;font-weight:600}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--gold);color:var(--ink)}
 
-/* ---------- reveal-анимации ---------- */
-.rv{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.2,.6,.2,1),transform .8s cubic-bezier(.2,.6,.2,1)}
-.rv.on{opacity:1;transform:none}
-.rv.d1{transition-delay:.12s}.rv.d2{transition-delay:.24s}.rv.d3{transition-delay:.36s}.rv.d4{transition-delay:.48s}
+/* ---------- прелоадер ---------- */
+#veil{position:fixed;inset:0;z-index:200;background:var(--ink);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px}
+#veil .vw{overflow:hidden}
+#veil .vt{font-family:'Playfair Display',serif;font-size:clamp(38px,7vw,72px);color:var(--paper);letter-spacing:.14em;transform:translateY(110%)}
+#veil .vs{color:var(--gold);letter-spacing:.4em;font-size:11px;text-transform:uppercase;opacity:0}
+#veil .vbar{width:min(220px,50vw);height:1px;background:rgba(255,255,255,.15);overflow:hidden}
+#veil .vbar i{display:block;height:100%;width:0;background:var(--gold)}
+
+/* ---------- курсор ---------- */
+@media(pointer:fine){
+  .cur-dot{position:fixed;z-index:190;width:6px;height:6px;border-radius:50%;background:var(--gold);pointer-events:none;transform:translate(-50%,-50%)}
+  .cur-ring{position:fixed;z-index:190;width:34px;height:34px;border-radius:50%;border:1px solid rgba(200,164,92,.6);pointer-events:none;transform:translate(-50%,-50%);transition:width .25s,height .25s,opacity .25s}
+  .cur-ring.big{width:64px;height:64px;opacity:.9}
+}
+@media(pointer:coarse){.cur-dot,.cur-ring{display:none}}
+
+/* ---------- зерно ---------- */
+.grain{position:fixed;inset:-50%;z-index:120;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='300' height='300' filter='url(%23n)' opacity='.6'/></svg>")}
 
 /* ---------- шапка ---------- */
-header{position:fixed;inset:0 0 auto 0;z-index:100;transition:background .35s,box-shadow .35s;padding:20px 0}
-header.scrolled{background:rgba(244,239,230,.92);backdrop-filter:blur(12px);box-shadow:0 1px 0 rgba(15,30,26,.08);padding:12px 0}
-.nav{display:flex;align-items:center;justify-content:space-between}
-.logo{display:inline-flex;align-items:center;text-decoration:none}
-.logo img{height:52px;width:auto;display:block}
-.logo .lg-b{display:none}
-header.scrolled .lg-w{display:none}
-header.scrolled .lg-b{display:block}
-@media(max-width:760px){.logo img{height:42px}}
-.nav-links{display:flex;gap:28px;align-items:center}
-.nav-links a{color:rgba(253,252,249,.85);text-decoration:none;font-size:.92rem;font-weight:600;transition:color .35s}
-header.scrolled .nav-links a{color:var(--ink)}
-.nav-links a:hover{color:var(--gold)}
-.nav-cta{background:var(--gold);color:var(--ink)!important;padding:10px 22px;border-radius:999px}
-@media(max-width:820px){.nav-links a:not(.nav-cta){display:none}}
+header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px clamp(18px,4vw,48px);transition:background .4s,box-shadow .4s,padding .4s}
+header.scrolled{background:rgba(15,30,26,.88);backdrop-filter:blur(14px);padding:12px clamp(18px,4vw,48px);box-shadow:0 6px 30px rgba(0,0,0,.25)}
+header img{height:30px}
+nav{display:flex;gap:26px;align-items:center}
+nav a{color:var(--paper);font-size:13.5px;font-weight:600;letter-spacing:.02em;opacity:.85;position:relative;padding:6px 0}
+nav a:after{content:'';position:absolute;left:0;bottom:0;width:0;height:1.5px;background:var(--gold);transition:width .3s}
+nav a:hover:after{width:100%}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 28px;border-radius:60px;font-weight:700;font-size:14.5px;border:0;cursor:pointer;position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s;min-height:44px}
+.btn.gold{background:linear-gradient(120deg,var(--gold),var(--gold2));color:var(--ink)}
+.btn.gold:hover{box-shadow:0 10px 34px rgba(200,164,92,.45)}
+.btn.ghost{background:transparent;color:var(--paper);border:1px solid rgba(250,247,241,.4)}
+.btn.ghost:hover{border-color:var(--gold);color:var(--gold2)}
+.btn .shine{position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-20deg)}
+.btn.gold:hover .shine{animation:shine .8s}
+@keyframes shine{to{left:130%}}
+#burger{display:none;background:none;border:0;cursor:pointer;z-index:110;width:44px;height:44px}
+#burger span{display:block;width:26px;height:2px;background:var(--paper);margin:6px auto;transition:.35s}
+body.menu-open #burger span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+body.menu-open #burger span:nth-child(2){opacity:0}
+body.menu-open #burger span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+#mnav{position:fixed;inset:0;z-index:105;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;clip-path:circle(0 at calc(100% - 40px) 40px);transition:clip-path .6s cubic-bezier(.7,0,.3,1);visibility:hidden}
+body.menu-open #mnav{clip-path:circle(150% at calc(100% - 40px) 40px);visibility:visible}
+#mnav a{color:var(--paper);font-family:'Playfair Display',serif;font-size:30px;padding:10px}
+#mnav a em{color:var(--gold);font-style:normal}
 
 /* ---------- герой ---------- */
-.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;padding:150px 0 90px;color:var(--white);
-  background-color:var(--ink);
-  background-image:url('img/hero.jpg'),radial-gradient(120% 90% at 75% 10%,#2f6b57 0%,#173830 45%,#0f1e1a 100%);
-  background-size:cover;background-position:center;background-repeat:no-repeat}
-.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,30,26,.25) 0%,rgba(15,30,26,.35) 55%,rgba(15,30,26,.88) 100%)}
-.hero .container{position:relative;z-index:2}
-.hero .kicker{color:var(--gold-2)}
-.hero h1{font-size:clamp(2.6rem,6.2vw,4.6rem);max-width:820px;margin-bottom:22px;color:var(--white)}
-.hero h1 em{font-style:italic;color:var(--gold-2)}
-.hero p{font-size:1.15rem;max-width:540px;color:rgba(253,252,249,.82);margin-bottom:36px}
-.hero-cta{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:64px}
-.btn.ghost{background:transparent;border:1px solid rgba(253,252,249,.4);color:var(--white)}
-.btn.ghost:hover{border-color:var(--gold);color:var(--gold-2)}
-.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(253,252,249,.16);border:1px solid rgba(253,252,249,.16);border-radius:16px;overflow:hidden;max-width:860px}
-.hstat{background:rgba(15,30,26,.55);backdrop-filter:blur(6px);padding:22px 26px}
-.hstat b{display:block;font-family:'Manrope',sans-serif;font-size:1.75rem;color:var(--gold-2);font-weight:800;letter-spacing:-.01em;white-space:nowrap}
-.hstat span{font-size:.82rem;color:rgba(253,252,249,.7);letter-spacing:.03em}
-@media(max-width:760px){.hero-stats{grid-template-columns:repeat(2,1fr)}.hero{padding:120px 0 60px}.scroll-hint{display:none}.hstat{padding:16px 18px}.hstat b{font-size:1.35rem}}
-.scroll-hint{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:2;width:26px;height:42px;border:2px solid rgba(253,252,249,.5);border-radius:14px}
-.scroll-hint::before{content:"";position:absolute;top:8px;left:50%;width:4px;height:8px;margin-left:-2px;border-radius:4px;background:var(--gold-2);animation:wheel 1.8s ease-in-out infinite}
-@keyframes wheel{0%{opacity:1;transform:translateY(0)}70%{opacity:0;transform:translateY(14px)}100%{opacity:0}}
+.hero{position:relative;height:100vh;min-height:640px;overflow:hidden;background:var(--ink)}
+.hero-bg{position:absolute;inset:-6% 0;background:linear-gradient(175deg,#0c1a16 0%,#12302a 34%,#1d4a35 58%,#3d6b47 78%,#0f1e1a 100%);background-size:cover;background-position:center;will-change:transform}
+.hero-bg .sun{position:absolute;left:50%;top:34%;width:min(46vw,420px);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,rgba(224,192,132,.55) 0%,rgba(224,192,132,.18) 42%,transparent 70%);filter:blur(2px);animation:sunbreathe 7s ease-in-out infinite}
+@keyframes sunbreathe{50%{transform:translate(-50%,-52%) scale(1.06);opacity:.85}}
+.hero-scape{position:absolute;left:0;right:0;bottom:-2px;width:100%;height:auto;pointer-events:none}
+.hero-scape path{fill:#0a1512}
+.hero-scape .far{fill:#122a22;opacity:.9}
+.hero-bg:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,30,26,.55) 0%,rgba(15,30,26,.18) 45%,rgba(15,30,26,.85) 100%)}
+.hero-in{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding:0 clamp(18px,5vw,64px) 110px;max-width:1280px;margin:0 auto}
+.kicker{color:var(--gold2);letter-spacing:.35em;font-size:11.5px;text-transform:uppercase;font-weight:700;margin-bottom:22px}
+.hero h1{color:var(--paper);font-size:clamp(40px,7.2vw,88px);line-height:1.04;font-weight:600;max-width:14ch}
+.hero h1 em{font-style:italic;color:var(--gold2)}
+.hero h1 .w{display:inline-block;overflow:hidden;vertical-align:bottom}
+.hero h1 .w i{display:inline-block;font-style:inherit;transform:translateY(110%)}
+.hero p.sub{color:rgba(250,247,241,.85);max-width:52ch;margin:24px 0 34px;font-size:clamp(15px,1.4vw,18px);line-height:1.65}
+.hero-cta{display:flex;gap:16px;flex-wrap:wrap}
+.scroll-hint{position:absolute;right:clamp(18px,4vw,48px);bottom:34px;z-index:3;color:rgba(250,247,241,.7);font-size:11px;letter-spacing:.3em;text-transform:uppercase;writing-mode:vertical-rl;display:flex;align-items:center;gap:12px}
+.scroll-hint:after{content:'';width:1px;height:56px;background:linear-gradient(var(--gold),transparent);animation:drip 1.8s infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}55%{transform:scaleY(1);transform-origin:top}56%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
 /* ---------- бегущая строка ---------- */
-.marquee{background:var(--ink);color:var(--sand);padding:16px 0;overflow:hidden;white-space:nowrap}
-.marquee-track{display:inline-block;animation:mq 28s linear infinite}
-.marquee span{font-size:.85rem;letter-spacing:.24em;text-transform:uppercase;margin:0 34px;color:rgba(244,239,230,.75)}
-.marquee b{color:var(--gold-2);font-weight:400}
+.ribbon{background:var(--gold);color:var(--ink);overflow:hidden;padding:13px 0;position:relative;z-index:5}
+.ribbon .track{display:flex;gap:44px;white-space:nowrap;width:max-content;animation:mq 26s linear infinite;font-weight:800;font-size:13.5px;letter-spacing:.06em;text-transform:uppercase}
+.ribbon span{display:flex;align-items:center;gap:44px}
+.ribbon i{font-style:normal;opacity:.55}
 @keyframes mq{to{transform:translateX(-50%)}}
 
-/* ---------- о проекте ---------- */
-.about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center}
-.about-photo{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:4/4.6;
-  background-image:url('img/aerial2.jpg'),linear-gradient(150deg,#2b6b58,#173830 70%);background-size:cover;background-position:center;box-shadow:28px 28px 0 -12px var(--sand-2)}
-.about-photo .tag{position:absolute;left:22px;bottom:22px;background:rgba(15,30,26,.72);backdrop-filter:blur(8px);color:var(--sand);padding:12px 20px;border-radius:12px;font-size:.85rem}
-.about-photo .tag b{color:var(--gold-2)}
-.about ul{list-style:none;margin-top:30px}
-.about li{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--sand-2);font-size:1rem}
-.about li:last-child{border-bottom:none}
-.about li .ico{flex:0 0 auto;width:42px;height:42px;border-radius:50%;background:var(--ink);color:var(--gold-2);display:flex;align-items:center;justify-content:center;font-size:1.05rem}
-.about li b{display:block;font-size:1.02rem}
-.about li small{color:var(--muted);font-size:.9rem}
-@media(max-width:880px){.about-grid{grid-template-columns:1fr;gap:40px}}
+/* ---------- секции общие ---------- */
+section{position:relative}
+.wrap{max-width:1200px;margin:0 auto;padding:clamp(70px,10vw,130px) clamp(18px,5vw,48px)}
+.eyebrow{color:var(--gold);letter-spacing:.3em;font-size:11.5px;text-transform:uppercase;font-weight:800;margin-bottom:16px}
+h2{font-size:clamp(30px,4.4vw,54px);line-height:1.12;max-width:22ch}
+.lead{color:var(--mut);font-size:clamp(15px,1.35vw,17.5px);line-height:1.7;max-width:60ch;margin-top:18px}
+
+/* ---------- стройка (пин-сцена) ---------- */
+#build{background:var(--ink);color:var(--paper)}
+#build .stage{height:100vh;display:flex;align-items:center;overflow:hidden}
+#build .stage-in{width:100%;max-width:1200px;margin:0 auto;padding:0 clamp(18px,5vw,48px);display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(28px,5vw,70px);align-items:center}
+.villa-frame{position:relative;aspect-ratio:4/3;border-radius:18px;overflow:hidden;background:linear-gradient(160deg,#122620,#0c1815);border:1px solid rgba(200,164,92,.2)}
+.villa-frame svg{position:absolute;inset:0;width:100%;height:100%}
+.villa-frame .ph{position:absolute;inset:0;background:linear-gradient(160deg,#1d4034 0%,#132b23 55%,#0c1815 100%);background-size:cover;background-position:center;opacity:0;display:flex;align-items:center;justify-content:center}
+.villa-frame .ph .mono{font-family:'Playfair Display',serif;color:var(--gold2);font-size:clamp(34px,4vw,52px);letter-spacing:.18em;text-shadow:0 6px 30px rgba(0,0,0,.4)}
+.villa-frame .ph.has-img .mono{display:none}
+.villa-frame .ph:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(15,30,26,.75));}
+.villa-frame .badge{position:absolute;left:18px;bottom:16px;background:rgba(15,30,26,.75);backdrop-filter:blur(8px);border:1px solid var(--line);color:var(--gold2);padding:9px 16px;border-radius:40px;font-size:12px;font-weight:700;letter-spacing:.08em;opacity:0}
+#build h2{color:var(--paper)}
+.b-step{margin-top:30px;position:relative;min-height:120px}
+.b-step .bs{position:absolute;inset:0;opacity:0;visibility:hidden}
+.b-step .bs .n{color:var(--gold);font-family:'Playfair Display',serif;font-size:15px;letter-spacing:.2em;margin-bottom:10px}
+.b-step .bs h3{font-size:clamp(21px,2.2vw,27px);color:var(--paper);margin-bottom:10px}
+.b-step .bs p{color:rgba(250,247,241,.7);line-height:1.65;max-width:44ch;font-size:15px}
+.b-prog{margin-top:26px;height:2px;background:rgba(250,247,241,.14);border-radius:2px;overflow:hidden;max-width:340px}
+.b-prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold2))}
+svg .bp{fill:none;stroke:var(--gold2);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+svg .bp.thin{stroke-width:1;opacity:.65}
+svg .fill-w{fill:rgba(200,164,92,.1);opacity:0}
+svg .grid line{stroke:rgba(200,164,92,.08);stroke-width:1}
+
+/* ---------- цифры ---------- */
+#stats{background:var(--ink);color:var(--paper);border-top:1px solid rgba(250,247,241,.08)}
+#stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;padding-top:70px;padding-bottom:70px}
+.stat{border-left:1px solid var(--line);padding-left:22px}
+.stat b{display:block;font-family:'Playfair Display',serif;font-weight:600;font-size:clamp(30px,3.6vw,50px);color:var(--gold2)}
+.stat span{color:rgba(250,247,241,.65);font-size:13.5px;line-height:1.5;display:block;margin-top:6px}
+
+/* ---------- почему ---------- */
+.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:50px}
+.why{background:#fff;border:1px solid #eadfc8;border-radius:16px;padding:30px 28px;display:flex;gap:18px;align-items:flex-start;transition:transform .35s,box-shadow .35s}
+.why:hover{transform:translateY(-5px);box-shadow:0 18px 44px rgba(15,30,26,.1)}
+.why .ic{flex:0 0 46px;height:46px;border-radius:12px;background:var(--ink);color:var(--gold2);display:flex;align-items:center;justify-content:center}
+.why b{display:block;font-size:16.5px;margin-bottom:7px}
+.why p{color:var(--mut);font-size:14.5px;line-height:1.65}
+.why a{color:var(--gold);font-weight:700}
 
 /* ---------- виллы ---------- */
-.villas{background:var(--ink);color:var(--sand)}
-.villas h2{color:var(--white)}
-.villas .lead{color:rgba(244,239,230,.6)}
-.v-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:52px}
-.v-card{position:relative;background:linear-gradient(165deg,#1a3a31,#12251f);border:1px solid rgba(200,164,92,.18);border-radius:18px;padding:30px 28px;transition:transform .35s,border-color .35s,box-shadow .35s;overflow:hidden}
-.v-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),transparent);opacity:0;transition:opacity .35s}
-.v-card:hover{transform:translateY(-8px);border-color:rgba(200,164,92,.5);box-shadow:0 24px 44px rgba(0,0,0,.35)}
-.v-card:hover::before{opacity:1}
-.v-card .vnum{font-size:.75rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-2);margin-bottom:10px}
-.v-card h3{font-size:1.5rem;color:var(--white);margin-bottom:4px}
-.v-card .vprice{font-family:'Playfair Display',serif;font-size:1.75rem;color:var(--gold-2);margin:14px 0 18px}
-.v-specs{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;font-size:.88rem;color:rgba(244,239,230,.75)}
-.v-specs b{color:var(--sand);font-weight:700}
-.v-card .vbtn{margin-top:24px;display:inline-block;color:var(--gold-2);text-decoration:none;font-weight:700;font-size:.92rem}
-.v-card .vbtn::after{content:"→";display:inline-block;margin-left:6px;transition:transform .25s}
-.v-card:hover .vbtn::after{transform:translateX(5px)}
-.v-badge{position:absolute;top:22px;right:22px;background:rgba(200,164,92,.15);border:1px solid rgba(200,164,92,.4);color:var(--gold-2);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;border-radius:999px}
-@media(max-width:960px){.v-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:640px){.v-grid{grid-template-columns:1fr}}
+#villas{background:var(--cream)}
+.v-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:54px;perspective:1200px}
+.v-card{background:#fff;border-radius:20px;padding:34px 30px;border:1px solid #e8dcc2;position:relative;transform-style:preserve-3d;transition:box-shadow .35s;will-change:transform}
+.v-card:hover{box-shadow:0 26px 60px rgba(15,30,26,.14)}
+.v-card .tag{position:absolute;top:-13px;left:28px;background:var(--ink);color:var(--gold2);font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;padding:7px 14px;border-radius:30px}
+.v-card .vn{color:var(--mut);font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700}
+.v-card h3{font-size:27px;margin:10px 0 4px}
+.v-card .price{font-family:'Playfair Display',serif;font-size:clamp(28px,2.6vw,36px);color:var(--gold);margin:6px 0 20px}
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;border-top:1px solid #efe6d0;padding-top:18px;margin-bottom:24px}
+.specs div{font-size:13.5px;color:var(--mut)}
+.specs b{display:block;color:var(--ink);font-size:15.5px;margin-top:2px}
+.v-card .btn{width:100%;justify-content:center}
 
-/* ---------- юридика ---------- */
-.law-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:52px}
-.law{background:var(--white);border-radius:18px;padding:34px 30px;box-shadow:0 4px 24px rgba(15,30,26,.06);transition:transform .35s,box-shadow .35s}
-.law:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(15,30,26,.12)}
-.law .n{font-family:'Playfair Display',serif;font-size:2.6rem;color:var(--sand-2);font-weight:700;line-height:1;margin-bottom:16px;-webkit-text-stroke:1px var(--gold)}
-.law h3{font-size:1.12rem;margin-bottom:10px}
-.law p{font-size:.93rem;color:var(--muted)}
-@media(max-width:880px){.law-grid{grid-template-columns:1fr}}
+/* ---------- документы ---------- */
+#law .cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,70px);margin-top:50px}
+.doc{display:flex;gap:20px;padding:26px 0;border-bottom:1px solid #eadfc8}
+.doc .n{font-family:'Playfair Display',serif;color:var(--gold);font-size:20px;min-width:36px}
+.doc b{display:block;font-size:17px;margin-bottom:8px}
+.doc p{color:var(--mut);font-size:14.5px;line-height:1.65}
+.tline{position:relative;padding-left:34px}
+.tline:before{content:'';position:absolute;left:8px;top:8px;bottom:8px;width:2px;background:#eadfc8}
+.tline .tfill{position:absolute;left:8px;top:8px;width:2px;height:0;background:var(--gold)}
+.t-step{position:relative;padding:0 0 34px}
+.t-step:before{content:'';position:absolute;left:-33px;top:4px;width:12px;height:12px;border-radius:50%;background:#eadfc8;transition:background .4s,box-shadow .4s}
+.t-step.lit:before{background:var(--gold);box-shadow:0 0 0 5px rgba(200,164,92,.2)}
+.t-step b{display:block;font-size:16.5px;margin-bottom:6px}
+.t-step p{color:var(--mut);font-size:14.5px;line-height:1.6}
 
-/* ---------- таймлайн ---------- */
-.timeline{position:relative;margin-top:60px;padding-left:0;display:grid;grid-template-columns:repeat(3,1fr);gap:0}
-.timeline::before{content:"";position:absolute;top:11px;left:8%;right:8%;height:2px;background:linear-gradient(90deg,var(--gold),var(--sand-2))}
-.t-step{position:relative;text-align:center;padding:0 18px}
-.t-step .dot{position:relative;z-index:2;width:24px;height:24px;margin:0 auto 18px;border-radius:50%;background:var(--sand);border:2px solid var(--gold);transition:background .4s}
-.t-step.lit .dot{background:var(--gold)}
-.t-step b{display:block;font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:6px}
-.t-step p{font-size:.9rem;color:var(--muted)}
-@media(max-width:720px){.timeline{grid-template-columns:1fr;gap:34px}.timeline::before{display:none}}
+/* ---------- DOMA лента ---------- */
+#doma{background:var(--ink);color:var(--paper);overflow:hidden}
+#doma .head{max-width:1200px;margin:0 auto;padding:clamp(70px,9vw,110px) clamp(18px,5vw,48px) 10px}
+#doma h2{color:var(--paper)}
+#doma .lead{color:rgba(250,247,241,.7)}
+.rail-wrap{overflow:hidden;padding-bottom:clamp(70px,9vw,110px)}
+.rail{display:flex;gap:18px;padding:44px clamp(18px,5vw,48px);width:max-content}
+.r-card{flex:0 0 300px;background:var(--ink2);border:1px solid rgba(200,164,92,.22);border-radius:18px;padding:28px 26px;min-height:210px;display:flex;flex-direction:column;gap:12px}
+.r-card .n{font-family:'Playfair Display',serif;color:var(--gold);font-size:15px;letter-spacing:.2em}
+.r-card b{font-size:16.5px;line-height:1.35}
+.r-card p{color:rgba(250,247,241,.65);font-size:13.5px;line-height:1.6}
 
-/* ---------- 10 причин DOMA ---------- */
-.doma{background:var(--sand-2)}
-.d-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:48px}
-.d-item{display:flex;gap:18px;align-items:flex-start;background:var(--white);border-radius:14px;padding:22px 24px;transition:transform .3s,box-shadow .3s}
-.d-item:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(15,30,26,.1)}
-.d-item .dn{font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;color:var(--gold);min-width:34px;padding-top:2px}
-.d-item b{display:block;font-size:1rem;margin-bottom:3px}
-.d-item p{font-size:.88rem;color:var(--muted)}
-@media(max-width:820px){.d-grid{grid-template-columns:1fr}}
-
-/* ---------- форма ---------- */
-.cta{position:relative;background:linear-gradient(150deg,#173830,#0f1e1a);color:var(--sand);overflow:hidden}
-.cta::before{content:"";position:absolute;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(200,164,92,.16),transparent 65%);top:-180px;right:-140px}
-.cta h2{color:var(--white)}
-.cta .lead{color:rgba(244,239,230,.65)}
-.form{display:grid;grid-template-columns:1fr 1fr auto;gap:14px;max-width:780px;margin-top:40px;position:relative;z-index:2}
-.form input{padding:17px 22px;border-radius:999px;border:1px solid rgba(244,239,230,.25);background:rgba(253,252,249,.06);color:var(--white);font-size:1rem;font-family:inherit;transition:border-color .3s}
-.form input::placeholder{color:rgba(244,239,230,.45)}
+/* ---------- лид ---------- */
+#lead{background:linear-gradient(160deg,var(--ink) 0%,var(--ink2) 100%);color:var(--paper);position:relative;overflow:hidden}
+#lead .leaf{position:absolute;pointer-events:none;opacity:.1}
+#lead .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(30px,5vw,80px);align-items:center;position:relative;z-index:2}
+#lead h2{color:var(--paper)}
+#lead .lead{color:rgba(250,247,241,.72)}
+.form{background:rgba(250,247,241,.05);border:1px solid rgba(200,164,92,.3);border-radius:22px;padding:clamp(26px,3vw,40px);backdrop-filter:blur(8px)}
+.form input{width:100%;background:rgba(15,30,26,.5);border:1px solid rgba(250,247,241,.18);color:var(--paper);border-radius:12px;padding:16px 18px;font-size:15px;margin-bottom:14px;font-family:inherit;transition:border .3s}
 .form input:focus{outline:none;border-color:var(--gold)}
-.form-note{margin-top:16px;font-size:.8rem;color:rgba(244,239,230,.45)}
-@media(max-width:760px){.form{grid-template-columns:1fr}}
+.form input::placeholder{color:rgba(250,247,241,.45)}
+.form .btn{width:100%;justify-content:center}
+.form small{display:block;color:rgba(250,247,241,.5);font-size:12px;line-height:1.5;margin-top:14px;text-align:center}
+.form small a{text-decoration:underline}
+.msgr{display:flex;gap:14px;margin-top:20px}
+.msgr a{flex:1;text-align:center;padding:14px;border-radius:12px;border:1px solid rgba(250,247,241,.25);font-weight:700;font-size:14px;transition:border .3s,color .3s;min-height:44px;display:flex;align-items:center;justify-content:center}
+.msgr a:hover{border-color:var(--gold);color:var(--gold2)}
 
 /* ---------- FAQ ---------- */
-details{background:var(--white);border-radius:14px;margin-bottom:12px;padding:22px 26px;box-shadow:0 2px 14px rgba(15,30,26,.05)}
-details summary{font-weight:700;cursor:pointer;list-style:none;position:relative;padding-right:34px;font-size:1.02rem}
-details summary::-webkit-details-marker{display:none}
-details summary::after{content:"+";position:absolute;right:0;top:-4px;font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--gold);transition:transform .3s}
-details[open] summary::after{transform:rotate(45deg)}
-details p{margin-top:12px;color:var(--muted);font-size:.95rem}
+.faq{margin-top:46px;border-top:1px solid #eadfc8}
+.faq details{border-bottom:1px solid #eadfc8}
+.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:24px 4px;font-weight:700;font-size:16.5px;min-height:44px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .x{flex:0 0 30px;height:30px;border-radius:50%;border:1px solid var(--gold);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:17px;transition:transform .35s,background .35s,color .35s}
+.faq details[open] summary .x{transform:rotate(45deg);background:var(--gold);color:#fff}
+.faq .a{color:var(--mut);line-height:1.7;font-size:15px;padding:0 46px 24px 4px}
 
 /* ---------- футер ---------- */
-footer{background:var(--ink);color:rgba(244,239,230,.55);padding:44px 0;font-size:.88rem}
-footer .logo{font-size:1.2rem}
-footer .frow{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer{background:var(--ink);color:rgba(250,247,241,.7);padding:44px clamp(18px,5vw,48px);text-align:center;font-size:13.5px;line-height:2}
+footer img{height:26px;margin:0 auto 12px}
+footer a{color:var(--gold2)}
 
-/* ---------- счётчики ---------- */
-.count{font-variant-numeric:tabular-nums}
+/* ---------- reveal-заготовки ---------- */
+.rv{opacity:0;transform:translateY(36px)}
+@media(prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none}
+  .ribbon .track{animation:none}
+  html{scroll-behavior:auto}
+}
+
+/* ---------- адаптив ---------- */
+@media(max-width:1000px){
+  .why-grid{grid-template-columns:1fr}
+  .v-grid{grid-template-columns:1fr;max-width:460px;margin-left:auto;margin-right:auto}
+  #build .stage-in{grid-template-columns:1fr;gap:26px}
+  #build .stage{height:auto;min-height:100vh;padding:80px 0}
+  .villa-frame{max-width:560px}
+  #stats .wrap{grid-template-columns:repeat(2,1fr)}
+  #law .cols{grid-template-columns:1fr}
+  #lead .wrap{grid-template-columns:1fr}
+  nav{display:none}
+  #burger{display:block}
+}
 </style>
 </head>
 <body>
 
-<header id="hdr">
-  <div class="container nav">
-    <a class="logo" href="#" aria-label="DOMA">
-      <img class="lg-w" src="img/logo-white.svg" alt="DOMA">
-      <img class="lg-b" src="img/logo-black.svg" alt="DOMA">
-    </a>
-    <nav class="nav-links">
-      <a href="#about">О проекте</a>
-      <a href="#villas">Виллы</a>
-      <a href="#law">Условия</a>
-      <a href="#doma">О DOMA</a>
-      <a href="#faq">Вопросы</a>
-      <a class="nav-cta" href="#lead">Презентация</a>
-    </nav>
-  </div>
-</header>
+<div id="veil" aria-hidden="true">
+  <div class="vw"><div class="vt">MIRADOR</div></div>
+  <div class="vs">Bali · Six Private Villas</div>
+  <div class="vbar"><i></i></div>
+</div>
+<div class="grain" aria-hidden="true"></div>
+<div class="cur-dot" aria-hidden="true"></div>
+<div class="cur-ring" aria-hidden="true"></div>
 
-<!-- ================= ГЕРОЙ ================= -->
-<section class="hero">
-  <div class="container">
-    <div class="kicker rv">Бали · Комплекс из шести вилл</div>
-    <h1 class="rv d1">Mirador Villas — <em>приватный</em> комплекс вилл на Бали</h1>
-    <p class="rv d2">Шесть вилл от $129 000 с землёй в жилой зоне и договором leasehold на 40 лет. Сдача — сентябрь 2027.</p>
-    <div class="hero-cta rv d3">
-      <a class="btn gold" href="#lead">Получить презентацию <span class="arr">→</span></a>
+<header id="hdr">
+  <a href="#top" aria-label="DOMA"><img src="img/logo-white.svg" alt="DOMA"></a>
+  <nav>
+    <a href="#about">О проекте</a><a href="#villas">Виллы</a><a href="#law">Условия</a><a href="#doma">О DOMA</a><a href="#faq">Вопросы</a>
+    <a class="btn gold" href="#lead" style="padding:12px 22px">Презентация<span class="shine"></span></a>
+  </nav>
+  <button id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+</header>
+<div id="mnav">
+  <a href="#about">О проекте</a><a href="#villas"><em>Виллы</em></a><a href="#law">Условия</a><a href="#doma">О DOMA</a><a href="#faq">Вопросы</a><a href="#lead"><em>Презентация</em></a>
+</div>
+
+<section class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="sun"></div>
+    <svg class="hero-scape" viewBox="0 0 1440 260" preserveAspectRatio="none" aria-hidden="true">
+      <path class="far" d="M0 260 L0 150 Q180 100 360 130 T720 110 Q900 95 1080 125 T1440 105 L1440 260 Z"/>
+      <path d="M0 260 L0 200 Q120 170 240 185 Q300 130 330 128 Q345 126 352 140 L360 186 Q560 165 720 180 Q840 120 880 118 Q900 117 906 132 L916 182 Q1140 160 1290 178 Q1380 168 1440 175 L1440 260 Z"/>
+    </svg>
+  </div>
+  <div class="hero-in">
+    <div class="kicker rv-hero">Бали · Комплекс из шести вилл</div>
+    <h1 id="h1"></h1>
+    <p class="sub rv-hero">Шесть вилл от $129 000 с землёй в жилой зоне и договором leasehold на 40 лет. Сдача — сентябрь 2027.</p>
+    <div class="hero-cta rv-hero">
+      <a class="btn gold" href="#lead">Получить презентацию →<span class="shine"></span></a>
       <a class="btn ghost" href="#villas">Выбрать виллу</a>
     </div>
-    <div class="hero-stats rv d4">
-      <div class="hstat"><b>от $<span class="count" data-to="129">0</span> 000</b><span>стартовая цена</span></div>
-      <div class="hstat"><b><span class="count" data-to="6">0</span> вилл</b><span>доступно на старте</span></div>
-      <div class="hstat"><b><span class="count" data-to="40">0</span> лет</b><span>leasehold 25 + 15</span></div>
-      <div class="hstat"><b>09.2027</b><span>сдача комплекса</span></div>
-    </div>
   </div>
-  <div class="scroll-hint"></div>
+  <div class="scroll-hint">скролл</div>
 </section>
 
-<!-- ================= БЕГУЩАЯ СТРОКА ================= -->
-<div class="marquee"><div class="marquee-track">
-  <span>Старт продаж <b>·</b></span><span>6 вилл <b>·</b></span><span>от $129 000 <b>·</b></span><span>Leasehold 25 + 15 лет <b>·</b></span><span>Жилая зона R3 <b>·</b></span><span>Сдача сентябрь 2027 <b>·</b></span>
-  <span>Старт продаж <b>·</b></span><span>6 вилл <b>·</b></span><span>от $129 000 <b>·</b></span><span>Leasehold 25 + 15 лет <b>·</b></span><span>Жилая зона R3 <b>·</b></span><span>Сдача сентябрь 2027 <b>·</b></span>
-</div></div>
+<div class="ribbon" aria-hidden="true">
+  <div class="track">
+    <span>Старт продаж <i>·</i> 6 вилл <i>·</i> от $129 000 <i>·</i> Leasehold 25 + 15 лет <i>·</i> Жилая зона R3 <i>·</i> Сдача сентябрь 2027 <i>·</i></span>
+    <span>Старт продаж <i>·</i> 6 вилл <i>·</i> от $129 000 <i>·</i> Leasehold 25 + 15 лет <i>·</i> Жилая зона R3 <i>·</i> Сдача сентябрь 2027 <i>·</i></span>
+  </div>
+</div>
 
-<!-- ================= О ПРОЕКТЕ ================= -->
+<!-- СТРОЙКА НА ГЛАЗАХ -->
+<section id="build">
+  <div class="stage">
+    <div class="stage-in">
+      <div class="villa-frame">
+        <svg viewBox="0 0 480 360" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <g class="grid">
+            <line x1="0" y1="60" x2="480" y2="60"/><line x1="0" y1="120" x2="480" y2="120"/><line x1="0" y1="180" x2="480" y2="180"/><line x1="0" y1="240" x2="480" y2="240"/><line x1="0" y1="300" x2="480" y2="300"/>
+            <line x1="80" y1="0" x2="80" y2="360"/><line x1="160" y1="0" x2="160" y2="360"/><line x1="240" y1="0" x2="240" y2="360"/><line x1="320" y1="0" x2="320" y2="360"/><line x1="400" y1="0" x2="400" y2="360"/>
+          </g>
+          <!-- платформа -->
+          <path class="bp d1" d="M40 306 L440 306 L440 316 L40 316 Z"/>
+          <!-- корпус 1 этаж -->
+          <path class="bp d1" d="M96 306 L96 216 L344 216 L344 306"/>
+          <path class="bp thin d1" d="M120 306 L120 240 L180 240 L180 306 M200 306 L200 240 L260 240 L260 306"/>
+          <!-- корпус 2 этаж -->
+          <path class="bp d2" d="M108 216 L108 132 L332 132 L332 216"/>
+          <path class="bp thin d2" d="M132 216 L132 156 L196 156 L196 216 M220 216 L220 156 L284 156 L284 216"/>
+          <!-- крыша-консоль -->
+          <path class="bp d2" d="M84 132 L356 132 L356 120 L84 120 Z"/>
+          <!-- терраса и бассейн -->
+          <path class="bp d3" d="M344 306 L420 306 M352 306 L352 282 L416 282 L416 306"/>
+          <path class="bp thin d3" d="M356 302 Q368 296 380 302 T404 302"/>
+          <!-- пальма -->
+          <path class="bp thin d3" d="M60 306 C62 270 58 250 64 232 M64 232 C50 224 40 226 32 236 M64 232 C60 218 50 212 38 212 M64 232 C70 218 82 212 92 216 M64 232 C76 224 88 228 94 238"/>
+          <!-- заливка стен -->
+          <rect class="fill-w" x="96" y="216" width="248" height="90"/>
+          <rect class="fill-w" x="108" y="132" width="224" height="84"/>
+        </svg>
+        <div class="ph"><span class="mono">MIRADOR</span></div>
+        <div class="badge">Сдача · сентябрь 2027</div>
+      </div>
+      <div>
+        <div class="eyebrow">Как рождается Mirador</div>
+        <h2>Вилла строится<br>у вас на глазах</h2>
+        <div class="b-step">
+          <div class="bs bs1"><div class="n">01 — ЧЕРТЁЖ</div><h3>Земля в жилой зоне R3</h3><p>«Жёлтая зона» — целевое назначение для жилой застройки. KKPR получен, Due Diligence по земле пройден.</p></div>
+          <div class="bs bs2"><div class="n">02 — КАРКАС</div><h3>Оплата по этапам стройки</h3><p>Платежи привязаны к прогрессу работ: вы платите за фактический результат. Фото- и видеоотчёты каждые 2 недели.</p></div>
+          <div class="bs bs3"><div class="n">03 — КЛЮЧИ</div><h3>Сентябрь 2027 — сдача</h3><p>Вилла передаётся с мебелью и техникой, готовая к аренде с первого дня. Leasehold 25 + 15 лет — суммарно 40 лет.</p></div>
+        </div>
+        <div class="b-prog"><i></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stats">
+  <div class="wrap">
+    <div class="stat rv"><b>$<span class="count" data-to="129">0</span> 000</b><span>стартовая цена виллы</span></div>
+    <div class="stat rv"><b><span class="count" data-to="6">0</span> вилл</b><span>доступно на старте продаж</span></div>
+    <div class="stat rv"><b><span class="count" data-to="40">0</span> лет</b><span>leasehold 25 + 15</span></div>
+    <div class="stat rv"><b><span class="count" data-to="87">0</span>%</b><span>средняя заполняемость объектов DOMA</span></div>
+  </div>
+</section>
+
 <section id="about">
-  <div class="container about-grid">
-    <div class="about-photo rv">
-      <div class="tag">Участок комплекса · <b>съёмка с дрона</b></div>
-    </div>
-    <div class="about rv d1">
-      <div class="kicker">Почему Mirador</div>
-      <h2>Камерный формат: всего шесть вилл</h2>
-      <p class="lead">Малоэтажный приватный комплекс двухэтажных вилл. Никакой плотной застройки — у каждой виллы свой участок от 112 до 235 м².</p>
-      <ul>
-        <li><div class="ico">⛰</div><div><b>Своя земля в жилой зоне R3</b><small>«Жёлтая зона» — целевое назначение для жилой застройки, без рисков туристических зон</small></div></li>
-        <li><div class="ico">📜</div><div><b>Leasehold 25 лет + 15 лет продления</b><small>Гарантированное продление зафиксировано в договоре — суммарно 40 лет владения</small></div></li>
-        <li><div class="ico">📐</div><div><b>Гибкие планировки</b><small>Вместо двух компактных вилл можно построить одну виллу с 3 спальнями</small></div></li>
-        <li><div class="ico">🗺</div><div><b>Локация на карте</b><small><a href="https://maps.app.goo.gl/Heb1WjmK3bKycQP59" target="_blank" rel="noopener" style="color:var(--jade)">Открыть точку в Google Maps →</a></small></div></li>
-      </ul>
+  <div class="wrap">
+    <div class="eyebrow rv">Почему Mirador</div>
+    <h2 class="rv">Камерный формат: всего шесть вилл</h2>
+    <p class="lead rv">Малоэтажный приватный комплекс двухэтажных вилл. Никакой плотной застройки — у каждой виллы свой участок от 112 до 235 м².</p>
+    <div class="why-grid">
+      <div class="why rv"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 21h18M5 21V9l7-5 7 5v12M10 21v-6h4v6"/></svg></div><div><b>Своя земля в жилой зоне R3</b><p>«Жёлтая зона» — целевое назначение для жилой застройки, без рисков туристических зон.</p></div></div>
+      <div class="why rv"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M8 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H8M8 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2M8 3v18M12 8h4M12 12h4"/></svg></div><div><b>Leasehold 25 лет + 15 лет продления</b><p>Гарантированное продление зафиксировано в договоре — суммарно 40 лет владения.</p></div></div>
+      <div class="why rv"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 4h16v16H4zM4 12h16M12 4v16"/></svg></div><div><b>Гибкие планировки</b><p>Вместо двух компактных вилл можно построить одну виллу с 3 спальнями.</p></div></div>
+      <div class="why rv"><div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21s-7-5.5-7-11a7 7 0 0 1 14 0c0 5.5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div><div><b>Локация на карте</b><p><a href="https://maps.app.goo.gl/Heb1WjmK3bKycQP59" target="_blank" rel="noopener">Открыть точку в Google Maps →</a></p></div></div>
     </div>
   </div>
 </section>
 
-<!-- ================= ВИЛЛЫ ================= -->
-<section class="villas" id="villas">
-  <div class="container">
-    <div class="kicker rv" style="color:var(--gold-2)">Выбор юнита</div>
-    <h2 class="rv d1">Шесть вилл — три формата</h2>
-    <p class="lead rv d2">Все юниты двухэтажные, у каждого собственный участок. Цены — напрямую от застройщика.</p>
+<section id="villas">
+  <div class="wrap">
+    <div class="eyebrow rv">Выбор юнита</div>
+    <h2 class="rv">Шесть вилл — три формата</h2>
+    <p class="lead rv">Все юниты двухэтажные, у каждого собственный участок. Цены — напрямую от застройщика.</p>
     <div class="v-grid">
-      <div class="v-card rv"><div class="v-badge">Флагман</div>
-        <div class="vnum">Villa 1</div><h3>3 спальни</h3>
-        <div class="vprice">$239 000</div>
-        <div class="v-specs"><span>Участок <b>235 м²</b></span><span>Дом <b>144 м²</b></span><span>Этажа <b>2</b></span><span>Спальни <b>3</b></span></div>
-        <a class="vbtn" href="#lead">Запросить планировку</a>
-      </div>
-      <div class="v-card rv d1">
-        <div class="vnum">Villa 2 · 3 · 4</div><h3>2 спальни</h3>
-        <div class="vprice">$139 000</div>
-        <div class="v-specs"><span>Участок <b>от 116 м²</b></span><span>Дом <b>72 м²</b></span><span>Этажа <b>2</b></span><span>Спальни <b>2</b></span></div>
-        <a class="vbtn" href="#lead">Запросить планировку</a>
-      </div>
-      <div class="v-card rv d2">
-        <div class="vnum">Villa 5 · 6</div><h3>1 спальня</h3>
-        <div class="vprice">$129 000</div>
-        <div class="v-specs"><span>Участок <b>от 112 м²</b></span><span>Дом <b>72 м²</b></span><span>Этажа <b>2</b></span><span>Спальня <b>1</b></span></div>
-        <a class="vbtn" href="#lead">Запросить планировку</a>
-      </div>
+      <div class="v-card"><div class="tag">Флагман</div><div class="vn">Villa 1</div><h3>3 спальни</h3><div class="price">$239 000</div>
+        <div class="specs"><div>Участок<b>235 м²</b></div><div>Дом<b>144 м²</b></div><div>Этажа<b>2</b></div><div>Спальни<b>3</b></div></div>
+        <a class="btn gold" href="#lead">Запросить планировку<span class="shine"></span></a></div>
+      <div class="v-card"><div class="vn">Villa 2 · 3 · 4</div><h3>2 спальни</h3><div class="price">$139 000</div>
+        <div class="specs"><div>Участок<b>от 116 м²</b></div><div>Дом<b>72 м²</b></div><div>Этажа<b>2</b></div><div>Спальни<b>2</b></div></div>
+        <a class="btn gold" href="#lead">Запросить планировку<span class="shine"></span></a></div>
+      <div class="v-card"><div class="vn">Villa 5 · 6</div><h3>1 спальня</h3><div class="price">$129 000</div>
+        <div class="specs"><div>Участок<b>от 112 м²</b></div><div>Дом<b>72 м²</b></div><div>Этажа<b>2</b></div><div>Спальня<b>1</b></div></div>
+        <a class="btn gold" href="#lead">Запросить планировку<span class="shine"></span></a></div>
     </div>
   </div>
 </section>
 
-<!-- ================= УСЛОВИЯ / ЮРИДИКА ================= -->
 <section id="law">
-  <div class="container">
-    <div class="kicker rv">Прозрачная сделка</div>
-    <h2 class="rv d1">Документы открыты до сделки</h2>
-    <p class="lead rv d2">Полный пакет по земле и проекту предоставляем на этапе знакомства — проверяйте сами или с вашим юристом.</p>
-    <div class="law-grid">
-      <div class="law rv"><div class="n">01</div><h3>Due Diligence</h3><p>Юридическая проверка земли и собственника проведена — отчёт передаём по запросу вместе с презентацией.</p></div>
-      <div class="law rv d1"><div class="n">02</div><h3>KKPR и PBG</h3><p>Разрешение на использование земли (KKPR) получено, разрешение на строительство (PBG) — в стадии оформления.</p></div>
-      <div class="law rv d2"><div class="n">03</div><h3>Договор инвестора</h3><p>Основной контракт, авансовое соглашение и приложения по каждому типу виллы — стандартный прозрачный пакет.</p></div>
-    </div>
-    <div class="timeline">
-      <div class="t-step rv"><div class="dot"></div><b>Сейчас</b><p>Старт продаж: доступны все 6 вилл</p></div>
-      <div class="t-step rv d1"><div class="dot"></div><b>Строительство</b><p>Поэтапные платежи, привязанные к ходу работ</p></div>
-      <div class="t-step rv d2"><div class="dot"></div><b>Сентябрь 2027</b><p>Сдача: акт приёма-передачи и оформление leasehold</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= 10 ПРИЧИН DOMA ================= -->
-<section class="doma" id="doma">
-  <div class="container">
-    <div class="kicker rv">Застройщик проекта</div>
-    <h2 class="rv d1">DOMA: 10 причин работать с нами</h2>
-    <p class="lead rv d2">Девелопер полного цикла на Бали. Проекты: Green Harmony (сдан), Most, Sun Rise, Mirador, Forma.</p>
-    <div class="d-grid">
-      <div class="d-item rv"><span class="dn">01</span><div><b>Девелопер полного цикла с 2022 года</b><p>От выбора земли до передачи под управление — всё под одним флагом DOMA.</p></div></div>
-      <div class="d-item rv"><span class="dn">02</span><div><b>30+ вилл в портфеле</b><p>Цифры доходности — с реальных объектов, которые можно увидеть вживую.</p></div></div>
-      <div class="d-item rv"><span class="dn">03</span><div><b>Сданные проекты — можно посмотреть</b><p>Green Harmony сдан в 2024 году, Most и Sun Rise реализованы — приезжайте на экскурсию.</p></div></div>
-      <div class="d-item rv"><span class="dn">04</span><div><b>Юридическая прозрачность</b><p>KKPR, PBG, полный пакет документов и гарантия продления — зафиксировано в договоре.</p></div></div>
-      <div class="d-item rv"><span class="dn">05</span><div><b>Отчёты каждые 2 недели</b><p>Видео- и фотоотчёты о ходе строительства на всём протяжении стройки.</p></div></div>
-      <div class="d-item rv"><span class="dn">06</span><div><b>Оплата по этапам строительства</b><p>Платежи привязаны к прогрессу работ — вы платите за фактический результат.</p></div></div>
-      <div class="d-item rv"><span class="dn">07</span><div><b>Собственное производство мебели</b><p>Контроль качества интерьера и себестоимости без посредников.</p></div></div>
-      <div class="d-item rv"><span class="dn">08</span><div><b>Готово к аренде с первого дня</b><p>Вилла передаётся полностью оснащённой мебелью и техникой.</p></div></div>
-      <div class="d-item rv"><span class="dn">09</span><div><b>87% среднегодовая заполняемость</b><p>4000+ отзывов на Airbnb и 97% довольных гостей на действующих объектах.</p></div></div>
-      <div class="d-item rv"><span class="dn">10</span><div><b>Контроль качества и соответствие рендерам</b><p>Надёжные подрядчики, жёсткий тайминг, максимальное соответствие визуализациям.</p></div></div>
+  <div class="wrap">
+    <div class="eyebrow rv">Прозрачная сделка</div>
+    <h2 class="rv">Документы открыты до сделки</h2>
+    <p class="lead rv">Полный пакет по земле и проекту предоставляем на этапе знакомства — проверяйте сами или с вашим юристом.</p>
+    <div class="cols">
+      <div>
+        <div class="doc rv"><div class="n">01</div><div><b>Due Diligence</b><p>Юридическая проверка земли и собственника проведена — отчёт передаём по запросу вместе с презентацией.</p></div></div>
+        <div class="doc rv"><div class="n">02</div><div><b>KKPR и PBG</b><p>Разрешение на использование земли (KKPR) получено, разрешение на строительство (PBG) — в стадии оформления.</p></div></div>
+        <div class="doc rv"><div class="n">03</div><div><b>Договор инвестора</b><p>Основной контракт, авансовое соглашение и приложения по каждому типу виллы — стандартный прозрачный пакет.</p></div></div>
+      </div>
+      <div class="tline">
+        <div class="tfill"></div>
+        <div class="t-step"><b>Сейчас</b><p>Старт продаж: доступны все 6 вилл</p></div>
+        <div class="t-step"><b>Строительство</b><p>Поэтапные платежи, привязанные к ходу работ</p></div>
+        <div class="t-step"><b>Сентябрь 2027</b><p>Сдача: акт приёма-передачи и оформление leasehold</p></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ================= ФОРМА ================= -->
-<section class="cta" id="lead">
-  <div class="container">
-    <div class="kicker rv" style="color:var(--gold-2)">Презентация проекта</div>
-    <h2 class="rv d1">Получите презентацию, планировки и условия оплаты</h2>
-    <p class="lead rv d2">Пришлём полный пакет в WhatsApp или Telegram и ответим на вопросы — без навязчивых звонков.</p>
-    <form class="form rv d3" onsubmit="event.preventDefault();alert('Форма будет подключена к Telegram/CRM');">
-      <input type="text" placeholder="Ваше имя" required>
-      <input type="tel" placeholder="WhatsApp или @telegram" required>
-      <button class="btn gold" type="submit">Получить пакет <span class="arr">→</span></button>
-    </form>
-    <p class="form-note">Нажимая кнопку, вы соглашаетесь с <a href="https://doma-build.com/politic" target="_blank" rel="noopener" style="color:inherit">политикой конфиденциальности</a>.</p>
-    <p style="margin-top:26px;position:relative;z-index:2">
-      <a class="btn ghost" href="https://wa.me/6282340789243" target="_blank" rel="noopener" style="margin-right:12px">Написать в WhatsApp</a>
-      <a class="btn ghost" href="https://t.me/+6282340789243" target="_blank" rel="noopener">Написать в Telegram</a>
-    </p>
+<section id="doma">
+  <div class="head">
+    <div class="eyebrow rv">Застройщик проекта</div>
+    <h2 class="rv">DOMA: 10 причин работать с нами</h2>
+    <p class="lead rv">Девелопер полного цикла на Бали. Проекты: Green Harmony (сдан), Most, Sun Rise, Mirador, Forma. Листайте — лента едет вместе со скроллом.</p>
+  </div>
+  <div class="rail-wrap">
+    <div class="rail" id="rail">
+      <div class="r-card"><div class="n">01</div><b>Девелопер полного цикла с 2022 года</b><p>От выбора земли до передачи под управление — всё под одним флагом DOMA.</p></div>
+      <div class="r-card"><div class="n">02</div><b>30+ вилл в портфеле</b><p>Цифры доходности — с реальных объектов, которые можно увидеть вживую.</p></div>
+      <div class="r-card"><div class="n">03</div><b>Сданные проекты — можно посмотреть</b><p>Green Harmony сдан в 2024 году, Most и Sun Rise реализованы — приезжайте на экскурсию.</p></div>
+      <div class="r-card"><div class="n">04</div><b>Юридическая прозрачность</b><p>KKPR, PBG, полный пакет документов и гарантия продления — зафиксировано в договоре.</p></div>
+      <div class="r-card"><div class="n">05</div><b>Отчёты каждые 2 недели</b><p>Видео- и фотоотчёты о ходе строительства на всём протяжении стройки.</p></div>
+      <div class="r-card"><div class="n">06</div><b>Оплата по этапам строительства</b><p>Платежи привязаны к прогрессу работ — вы платите за фактический результат.</p></div>
+      <div class="r-card"><div class="n">07</div><b>Собственное производство мебели</b><p>Контроль качества интерьера и себестоимости без посредников.</p></div>
+      <div class="r-card"><div class="n">08</div><b>Готово к аренде с первого дня</b><p>Вилла передаётся полностью оснащённой мебелью и техникой.</p></div>
+      <div class="r-card"><div class="n">09</div><b>87% среднегодовая заполняемость</b><p>4000+ отзывов на Airbnb и 97% довольных гостей на действующих объектах.</p></div>
+      <div class="r-card"><div class="n">10</div><b>Контроль качества и соответствие рендерам</b><p>Надёжные подрядчики, жёсткий тайминг, максимальное соответствие визуализациям.</p></div>
+    </div>
   </div>
 </section>
 
-<!-- ================= FAQ ================= -->
+<section id="lead">
+  <svg class="leaf" style="top:-40px;right:-60px;width:340px" viewBox="0 0 200 200" fill="none" stroke="#c8a45c" stroke-width="1"><path d="M100 10 C60 60 40 120 100 190 C160 120 140 60 100 10 Z M100 10 L100 190 M100 60 C80 70 70 85 65 100 M100 60 C120 70 130 85 135 100 M100 110 C80 120 72 132 68 145 M100 110 C120 120 128 132 132 145"/></svg>
+  <svg class="leaf" style="bottom:-60px;left:-40px;width:280px;transform:rotate(140deg)" viewBox="0 0 200 200" fill="none" stroke="#c8a45c" stroke-width="1"><path d="M100 10 C60 60 40 120 100 190 C160 120 140 60 100 10 Z M100 10 L100 190 M100 60 C80 70 70 85 65 100 M100 60 C120 70 130 85 135 100 M100 110 C80 120 72 132 68 145 M100 110 C120 120 128 132 132 145"/></svg>
+  <div class="wrap">
+    <div>
+      <div class="eyebrow rv">Презентация проекта</div>
+      <h2 class="rv">Получите презентацию, планировки и условия оплаты</h2>
+      <p class="lead rv">Пришлём полный пакет в WhatsApp или Telegram и ответим на вопросы — без навязчивых звонков.</p>
+    </div>
+    <div>
+      <form class="form rv" onsubmit="event.preventDefault();alert('Форма будет подключена к Telegram/CRM');">
+        <input type="text" placeholder="Ваше имя" required>
+        <input type="tel" placeholder="WhatsApp или @telegram" required>
+        <button class="btn gold" type="submit">Получить пакет →<span class="shine"></span></button>
+        <small>Нажимая кнопку, вы соглашаетесь с <a href="https://doma-build.com/politic" target="_blank" rel="noopener">политикой конфиденциальности</a>.</small>
+      </form>
+      <div class="msgr rv">
+        <a href="https://wa.me/6282340789243" target="_blank" rel="noopener">Написать в WhatsApp</a>
+        <a href="https://t.me/+6282340789243" target="_blank" rel="noopener">Написать в Telegram</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="faq">
-  <div class="container" style="max-width:860px">
-    <div class="kicker rv">Вопросы</div>
-    <h2 class="rv d1">Частые вопросы</h2>
-    <div style="margin-top:36px">
-      <details class="rv"><summary>Что такое leasehold 25 + 15 лет?</summary><p>Это долгосрочная аренда земли — стандартный формат владения для иностранцев в Индонезии. В Mirador базовый срок 25 лет, и ещё 15 лет гарантированного продления зафиксированы в договоре: суммарно 40 лет.</p></details>
-      <details class="rv d1"><summary>Что значит «жёлтая зона R3»?</summary><p>Зонирование земли в Индонезии определяет, что на ней можно строить. Жёлтая зона R3 — жилая застройка: строительство вилл здесь полностью соответствует целевому назначению участка.</p></details>
-      <details class="rv d2"><summary>Когда будет готов комплекс?</summary><p>Плановая сдача — сентябрь 2027 года. Оплата привязана к этапам строительства, финальный платёж — при подписании акта приёма-передачи.</p></details>
-      <details class="rv d3"><summary>Можно ли изменить планировку?</summary><p>Да. Например, вместо двух компактных вилл (1–2 спальни) на смежных участках можно построить одну просторную виллу с тремя спальнями.</p></details>
-      <details class="rv d4"><summary>Какие документы я могу проверить?</summary><p>До сделки предоставляем отчёт Due Diligence по земле, KKPR, статус PBG, основной договор, авансовое соглашение и приложения по вашему типу виллы.</p></details>
+  <div class="wrap">
+    <div class="eyebrow rv">Вопросы</div>
+    <h2 class="rv">Частые вопросы</h2>
+    <div class="faq rv">
+      <details><summary>Что такое leasehold 25 + 15 лет?<span class="x">+</span></summary><div class="a">Это долгосрочная аренда земли — стандартный формат владения для иностранцев в Индонезии. В Mirador базовый срок 25 лет, и ещё 15 лет гарантированного продления зафиксированы в договоре: суммарно 40 лет.</div></details>
+      <details><summary>Что значит «жёлтая зона R3»?<span class="x">+</span></summary><div class="a">Зонирование земли в Индонезии определяет, что на ней можно строить. Жёлтая зона R3 — жилая застройка: строительство вилл здесь полностью соответствует целевому назначению участка.</div></details>
+      <details><summary>Когда будет готов комплекс?<span class="x">+</span></summary><div class="a">Плановая сдача — сентябрь 2027 года. Оплата привязана к этапам строительства, финальный платёж — при подписании акта приёма-передачи.</div></details>
+      <details><summary>Можно ли изменить планировку?<span class="x">+</span></summary><div class="a">Да. Например, вместо двух компактных вилл (1–2 спальни) на смежных участках можно построить одну просторную виллу с тремя спальнями.</div></details>
+      <details><summary>Какие документы я могу проверить?<span class="x">+</span></summary><div class="a">До сделки предоставляем отчёт Due Diligence по земле, KKPR, статус PBG, основной договор, авансовое соглашение и приложения по вашему типу виллы.</div></details>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="container frow">
-    <a class="logo" href="#" aria-label="DOMA"><img src="img/logo-white.svg" alt="DOMA" style="height:48px"></a>
-    <div>Mirador Villas — проект компании <a href="https://doma-build.com" target="_blank" rel="noopener" style="color:var(--gold-2)">DOMA</a> · <a href="https://wa.me/6282340789243" style="color:inherit">WhatsApp</a> · <a href="https://t.me/+6282340789243" style="color:inherit">Telegram</a></div>
-    <div>Не является публичной офертой · © 2026</div>
-  </div>
+  <img src="img/logo-white.svg" alt="DOMA">
+  <div>Mirador Villas — проект компании <a href="https://doma-build.com" target="_blank" rel="noopener">DOMA</a> · <a href="https://wa.me/6282340789243">WhatsApp</a> · <a href="https://t.me/+6282340789243">Telegram</a></div>
+  <div style="opacity:.55">Не является публичной офертой · © 2026</div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
-/* липкая шапка */
-const hdr=document.getElementById('hdr');
-addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>40),{passive:true});
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const mobile = matchMedia('(max-width: 1000px)').matches;
 
-/* reveal при скролле */
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.18});
-document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+/* если когда-нибудь зальют img/hero.jpg — подхватываем автоматически */
+const probe = new Image();
+probe.onload = () => {
+  document.querySelector('.hero-bg').style.backgroundImage = "url('img/hero.jpg')";
+  document.querySelector('.hero-scape').style.display = 'none';
+  document.querySelector('.hero-bg .sun').style.display = 'none';
+  const ph = document.querySelector('.villa-frame .ph');
+  ph.style.backgroundImage = "url('img/hero.jpg')";
+  ph.classList.add('has-img');
+};
+probe.src = 'img/hero.jpg';
 
-/* таймлайн: последовательная подсветка точек */
-const steps=[...document.querySelectorAll('.t-step')];
-const tio=new IntersectionObserver(es=>es.forEach(e=>{
-  if(!e.isIntersecting)return;
-  steps.forEach((s,i)=>setTimeout(()=>s.classList.add('lit'),i*350));
-  tio.disconnect();
-}),{threshold:.6});
-if(steps.length)tio.observe(steps[0]);
+/* заголовок героя по словам */
+const H1 = 'Mirador Villas — |приватный| комплекс вилл на Бали';
+document.getElementById('h1').innerHTML = H1.split(' ').map(w=>{
+  const em = w.startsWith('|');
+  const t = w.replaceAll('|','');
+  return `<span class="w"><i>${em?`<em>${t}</em>`:t}</i></span>`;
+}).join(' ');
 
-/* счётчики */
-const cio=new IntersectionObserver(es=>es.forEach(e=>{
-  if(!e.isIntersecting)return;cio.unobserve(e.target);
-  const el=e.target,to=+el.dataset.to,t0=performance.now(),dur=1400;
-  (function tick(t){const p=Math.min((t-t0)/dur,1),ease=1-Math.pow(1-p,3);
-    el.textContent=Math.round(to*ease);if(p<1)requestAnimationFrame(tick)})(t0);
-}),{threshold:.5});
-document.querySelectorAll('.count').forEach(el=>cio.observe(el));
+/* шапка */
+const hdr = document.getElementById('hdr');
+addEventListener('scroll', ()=>hdr.classList.toggle('scrolled', scrollY>40), {passive:true});
 
-/* лёгкий параллакс героя — только когда фото реально загружено */
-const hero=document.querySelector('.hero');
-const probe=new Image();
-probe.onload=()=>addEventListener('scroll',()=>{if(scrollY<innerHeight)hero.style.backgroundPositionY=`calc(50% + ${scrollY*.18}px)`},{passive:true});
-probe.src='img/hero.jpg';
+/* бургер */
+const burger = document.getElementById('burger');
+burger.onclick = ()=>document.body.classList.toggle('menu-open');
+document.querySelectorAll('#mnav a').forEach(a=>a.onclick=()=>document.body.classList.remove('menu-open'));
+
+/* курсор */
+if (matchMedia('(pointer:fine)').matches && !reduced){
+  const dot=document.querySelector('.cur-dot'), ring=document.querySelector('.cur-ring');
+  let rx=0, ry=0, tx=0, ty=0;
+  addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;dot.style.left=tx+'px';dot.style.top=ty+'px'});
+  (function loop(){rx+=(tx-rx)*.14;ry+=(ty-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})();
+  document.querySelectorAll('a,button,summary').forEach(el=>{
+    el.addEventListener('mouseenter',()=>ring.classList.add('big'));
+    el.addEventListener('mouseleave',()=>ring.classList.remove('big'));
+  });
+}
+
+/* магнитные кнопки */
+if (matchMedia('(pointer:fine)').matches && !reduced){
+  document.querySelectorAll('.btn').forEach(b=>{
+    b.addEventListener('mousemove',e=>{
+      const r=b.getBoundingClientRect();
+      gsap.to(b,{x:(e.clientX-r.left-r.width/2)*.25,y:(e.clientY-r.top-r.height/2)*.35,duration:.4});
+    });
+    b.addEventListener('mouseleave',()=>gsap.to(b,{x:0,y:0,duration:.5,ease:'elastic.out(1,.45)'}));
+  });
+}
+
+if (typeof gsap !== 'undefined'){
+gsap.registerPlugin(ScrollTrigger);
+
+/* прелоадер → герой */
+const veil = document.getElementById('veil');
+const intro = gsap.timeline({onComplete:()=>veil.remove()});
+if (reduced){ veil.remove(); gsap.set('.rv-hero, #h1 .w i',{clearProps:'all'}); document.querySelectorAll('#h1 .w i').forEach(i=>i.style.transform='none'); }
+else {
+  gsap.set('.rv-hero',{opacity:0,y:26});
+  intro.to('#veil .vt',{y:0,duration:.9,ease:'power4.out'})
+    .to('#veil .vs',{opacity:1,duration:.5},'-=.4')
+    .to('#veil .vbar i',{width:'100%',duration:.7,ease:'power2.inOut'},'-=.5')
+    .to(veil,{yPercent:-100,duration:.9,ease:'power4.inOut',delay:.15})
+    .from('.hero-bg',{scale:1.12,duration:1.6,ease:'power2.out'},'-=.9')
+    .to('#h1 .w i',{y:0,duration:.9,stagger:.07,ease:'power4.out'},'-=1.2')
+    .to('.rv-hero',{opacity:1,y:0,duration:.7,stagger:.12,ease:'power3.out'},'-=.6');
+}
+
+if (!reduced){
+  /* параллакс героя */
+  gsap.to('.hero-bg',{yPercent:12,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+  gsap.to('.hero-in',{yPercent:-8,opacity:.25,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom 30%',scrub:true}});
+
+  /* СТРОЙКА: пин-сцена */
+  const paths = gsap.utils.toArray('#build svg .bp');
+  paths.forEach(p=>{const L=p.getTotalLength();p.style.strokeDasharray=L;p.style.strokeDashoffset=L;});
+  const bt = gsap.timeline({
+    scrollTrigger:{trigger:'#build .stage',start:mobile?'top 65%':'top top',end:mobile?'+=120%':'+=280%',scrub:.6,pin:!mobile,anticipatePin:1}
+  });
+  bt.set('.bs1',{autoAlpha:1})
+    .to('#build svg .d1',{strokeDashoffset:0,duration:2,ease:'none'})
+    .to('.b-prog i',{width:'33%',duration:.4},'<')
+    .to('.bs1',{autoAlpha:0,y:-16,duration:.5},'+=.3')
+    .set('.bs2',{y:16}).to('.bs2',{autoAlpha:1,y:0,duration:.5})
+    .to('#build svg .d2',{strokeDashoffset:0,duration:2,ease:'none'},'<')
+    .to('#build svg .fill-w',{opacity:1,duration:1},'-=.8')
+    .to('.b-prog i',{width:'66%',duration:.4},'<')
+    .to('.bs2',{autoAlpha:0,y:-16,duration:.5},'+=.3')
+    .set('.bs3',{y:16}).to('.bs3',{autoAlpha:1,y:0,duration:.5})
+    .to('#build svg .d3',{strokeDashoffset:0,duration:1.4,ease:'none'},'<')
+    .to('.villa-frame .ph',{opacity:1,duration:1.6,ease:'power2.inOut'},'+=.2')
+    .to('.villa-frame .badge',{opacity:1,duration:.6},'-=.6')
+    .to('.b-prog i',{width:'100%',duration:.5},'<');
+
+  /* DOMA: горизонтальная лента */
+  const rail = document.getElementById('rail');
+  const dist = ()=>rail.scrollWidth - innerWidth;
+  if (!mobile){
+    gsap.to(rail,{x:()=>-dist(),ease:'none',scrollTrigger:{trigger:'.rail-wrap',start:'top 55%',end:()=>'+='+dist(),scrub:.5,pin:'#doma',invalidateOnRefresh:true}});
+  } else {
+    gsap.from('.r-card',{opacity:0,x:40,stagger:.08,duration:.6,scrollTrigger:{trigger:'.rail-wrap',start:'top 80%'}});
+    document.querySelector('.rail-wrap').style.overflowX='auto';
+  }
+
+  /* карточки вилл */
+  gsap.from('.v-card',{opacity:0,y:60,rotateX:8,stagger:.15,duration:.9,ease:'power3.out',scrollTrigger:{trigger:'.v-grid',start:'top 78%'}});
+
+  /* 3D-наклон карточек */
+  if (matchMedia('(pointer:fine)').matches){
+    document.querySelectorAll('.v-card').forEach(c=>{
+      c.addEventListener('mousemove',e=>{
+        const r=c.getBoundingClientRect();
+        gsap.to(c,{rotateY:((e.clientX-r.left)/r.width-.5)*8,rotateX:-((e.clientY-r.top)/r.height-.5)*8,duration:.4});
+      });
+      c.addEventListener('mouseleave',()=>gsap.to(c,{rotateY:0,rotateX:0,duration:.6,ease:'power2.out'}));
+    });
+  }
+
+  /* reveal */
+  gsap.utils.toArray('.rv').forEach(el=>{
+    gsap.to(el,{opacity:1,y:0,duration:.85,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 86%'}});
+  });
+
+  /* таймлайн сделки */
+  gsap.to('.tfill',{height:'calc(100% - 16px)',ease:'none',scrollTrigger:{trigger:'.tline',start:'top 75%',end:'bottom 55%',scrub:true}});
+  gsap.utils.toArray('.t-step').forEach(s=>{
+    ScrollTrigger.create({trigger:s,start:'top 68%',onEnter:()=>s.classList.add('lit')});
+  });
+
+  /* счётчики */
+  document.querySelectorAll('.count').forEach(el=>{
+    const to=+el.dataset.to;
+    ScrollTrigger.create({trigger:el,start:'top 85%',once:true,onEnter:()=>{
+      gsap.fromTo(el,{textContent:0},{textContent:to,duration:1.6,snap:{textContent:1},ease:'power2.out'});
+    }});
+  });
+
+  /* листья в лид-секции */
+  gsap.utils.toArray('#lead .leaf').forEach((l,i)=>{
+    gsap.to(l,{y:i?-60:60,rotate:i?150:8,ease:'none',scrollTrigger:{trigger:'#lead',start:'top bottom',end:'bottom top',scrub:true}});
+  });
+} else {
+  document.querySelectorAll('.rv').forEach(el=>{el.style.opacity=1;el.style.transform='none'});
+  document.querySelectorAll('.bs1').forEach(el=>{el.style.opacity=1;el.style.visibility='visible'});
+}
+} else {
+  document.getElementById('veil').remove();
+  document.querySelectorAll('.rv,.rv-hero,#h1 .w i,.bs1').forEach(el=>{el.style.opacity=1;el.style.transform='none';el.style.visibility='visible'});
+}
 </script>
 </body>
 </html>
