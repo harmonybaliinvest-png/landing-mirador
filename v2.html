@@ -68,6 +68,7 @@ main{position:relative;z-index:10}
 .beat.right{justify-content:flex-end}
 .beat.center{justify-content:center;text-align:center}
 .beat.center .card{max-width:760px}
+.beat.center h1,.beat.center h2,.beat.center p,.kicker{text-shadow:0 2px 24px rgba(6,13,10,.85),0 1px 4px rgba(6,13,10,.7)}
 .glass{background:rgba(10,22,17,.55);backdrop-filter:blur(14px);border:1px solid rgba(200,164,92,.22);border-radius:22px;padding:clamp(24px,3.4vw,42px)}
 .kicker{color:var(--gold2);letter-spacing:.32em;font-size:11px;text-transform:uppercase;font-weight:800;margin-bottom:14px}
 .beat h1{font-size:clamp(38px,6.4vw,76px);line-height:1.05;font-weight:600}
@@ -407,7 +408,7 @@ const dummy=new THREE.Object3D();
   const spots=scatter(mobile?260:420,(x,z,h)=>h>-4&&Math.abs(z-canyonZ(x))>34&&Math.hypot(x-plateau.x,z-plateau.z)>plateau.r*.95&&Math.hypot(x+90,z+120)>62);
   const inst=new THREE.InstancedMesh(canopyGeo,canopyMat,spots.length);
   spots.forEach((p,i)=>{
-    const s=.7+Math.random()*1.5;
+    const s=.6+Math.random()*.85;
     dummy.position.set(p[0],p[1]+5*s-1,p[2]);
     dummy.scale.set(s,s*(0.85+Math.random()*.5),s);
     dummy.rotation.y=Math.random()*Math.PI;
@@ -500,9 +501,9 @@ scene.fog=new THREE.Fog('#1d3b2f',60,520);
 
 /* --- палитры времени суток --- */
 const phases=[
-  {t:0.00,sky:'#16302a',fog:'#23473a',sun:'#ffd9a0',sunI:1.05,amb:.55,moon:0,sunPos:[-260,46,140],glow:1},
-  {t:0.30,sky:'#1d3c30',fog:'#2c5343',sun:'#ffe9c0',sunI:1.25,amb:.7,moon:0,sunPos:[-160,150,60],glow:.85},
-  {t:0.55,sky:'#2b3a2e',fog:'#3d4c38',sun:'#ffcf8e',sunI:1.1,amb:.6,moon:0,sunPos:[60,110,-40],glow:.9},
+  {t:0.00,sky:'#1b3a30',fog:'#2c5646',sun:'#ffd9a0',sunI:1.15,amb:.68,moon:0,sunPos:[210,34,-40],glow:1.1},
+  {t:0.30,sky:'#22463a',fog:'#356252',sun:'#ffe9c0',sunI:1.3,amb:.78,moon:0,sunPos:[160,130,-20],glow:.85},
+  {t:0.55,sky:'#2b3a2e',fog:'#3d4c38',sun:'#ffcf8e',sunI:1.15,amb:.65,moon:0,sunPos:[120,100,-60],glow:.9},
   {t:0.75,sky:'#3a2b23',fog:'#4a3527',sun:'#ff9a5c',sunI:.85,amb:.45,moon:.05,sunPos:[220,34,-120],glow:1.15},
   {t:0.92,sky:'#0c1a20',fog:'#12232a',sun:'#ff7a4a',sunI:.12,amb:.3,moon:.5,sunPos:[300,6,-160],glow:.35},
   {t:1.00,sky:'#080f14',fog:'#0d1a20',sun:'#ff7a4a',sunI:0,amb:.26,moon:.65,sunPos:[320,-8,-170],glow:0},
@@ -530,9 +531,9 @@ function applyPhase(t){
 
 /* --- маршрут дрона --- */
 const camPath=new THREE.CatmullRomCurve3([
-  new THREE.Vector3(-300,64,190),
-  new THREE.Vector3(-210,40,90),
-  new THREE.Vector3(-120,10,46),
+  new THREE.Vector3(-310,110,225),
+  new THREE.Vector3(-215,58,105),
+  new THREE.Vector3(-120,12,46),
   new THREE.Vector3(-40,4,-2),
   new THREE.Vector3(40,14,44),
   new THREE.Vector3(105,26,18),
