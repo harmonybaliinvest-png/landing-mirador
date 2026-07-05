@@ -14,14 +14,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#0f1e1a;--gold:#c8a45c;--gold2:#e0c084;--paper:#faf7f1;--mut:#93a49a;--line:rgba(200,164,92,.3)}
+:root{--slate:#193741;--slate2:#1d414d;--gold:#eac486;--goldD:#a97c3c;--paper:#ffffff;--parch:#ebe7e1;--mut:#8c9ba1;--hair:rgba(255,255,255,.28);--hairD:rgba(25,55,65,.25);
+--ink:var(--slate);--gold2:var(--gold);--line:rgba(234,196,134,.4)}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Manrope',sans-serif;background:#0c1a16;color:var(--paper);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{font-family:'Manrope',sans-serif;background:#12303a;color:var(--paper);overflow-x:hidden;-webkit-font-smoothing:antialiased;font-size:16px;line-height:1.4}
 h1,h2,h3,.serif{font-family:'Playfair Display',serif;font-weight:600}
 a{color:inherit;text-decoration:none}
 ::selection{background:var(--gold);color:var(--ink)}
 
-#veil{position:fixed;inset:0;z-index:300;background:#0c1a16;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;transition:opacity .8s,visibility .8s}
+#veil{position:fixed;inset:0;z-index:300;background:var(--slate);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;transition:opacity .8s,visibility .8s}
 #veil.off{opacity:0;visibility:hidden}
 #veil .vt{font-family:'Playfair Display',serif;font-size:clamp(36px,7vw,68px);color:var(--paper);letter-spacing:.16em}
 #veil .vs{color:var(--gold);letter-spacing:.42em;font-size:11px;text-transform:uppercase}
@@ -34,22 +35,22 @@ a{color:inherit;text-decoration:none}
 .grain{position:fixed;inset:-50%;z-index:3;pointer-events:none;opacity:.045;background-image:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='300' height='300' filter='url(%23n)' opacity='.6'/></svg>")}
 
 header{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:16px clamp(18px,4vw,48px);transition:background .4s;background:linear-gradient(180deg,rgba(10,20,16,.55),transparent)}
-header.scrolled{background:rgba(12,24,19,.82);backdrop-filter:blur(12px)}
+header.scrolled{background:var(--slate);border-bottom:1px solid var(--hair)}
 header img{height:28px}
-nav{display:flex;gap:24px;align-items:center}
-nav a{color:var(--paper);font-size:13.5px;font-weight:600;opacity:.85}
-nav a:hover{color:var(--gold2);opacity:1}
-.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 28px;border-radius:60px;font-weight:700;font-size:14.5px;border:0;cursor:pointer;min-height:44px;transition:transform .3s,box-shadow .3s;position:relative;overflow:hidden}
-.btn.gold{background:linear-gradient(120deg,var(--gold),var(--gold2));color:var(--ink)}
-.btn.gold:hover{box-shadow:0 10px 34px rgba(200,164,92,.4);transform:translateY(-2px)}
-.btn.ghost{background:rgba(12,24,19,.35);backdrop-filter:blur(6px);color:var(--paper);border:1px solid rgba(250,247,241,.35)}
-.btn.ghost:hover{border-color:var(--gold)}
+nav{display:flex;gap:26px;align-items:center}
+nav a{color:var(--paper);font-size:11.5px;font-weight:600;letter-spacing:.167em;text-transform:uppercase;opacity:.88}
+nav a:hover{color:var(--gold);opacity:1}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:13px 30px;border-radius:80px;font-weight:600;font-size:13px;letter-spacing:.167em;text-transform:uppercase;cursor:pointer;min-height:44px;transition:background .35s,color .35s,border-color .35s;background:transparent}
+.btn.gold{border:1.5px solid var(--slate);color:var(--slate)}
+.btn.gold:hover{background:var(--slate);color:#fff}
+.btn.ghost{border:1.5px solid #fff;color:#fff}
+.btn.ghost:hover{background:#fff;color:var(--slate)}
 #burger{display:none;background:none;border:0;cursor:pointer;width:44px;height:44px;z-index:120}
 #burger span{display:block;width:26px;height:2px;background:var(--paper);margin:6px auto;transition:.35s}
 body.menu-open #burger span:nth-child(1){transform:translateY(8px) rotate(45deg)}
 body.menu-open #burger span:nth-child(2){opacity:0}
 body.menu-open #burger span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
-#mnav{position:fixed;inset:0;z-index:110;background:rgba(12,24,19,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;clip-path:circle(0 at calc(100% - 40px) 40px);transition:clip-path .6s cubic-bezier(.7,0,.3,1);visibility:hidden}
+#mnav{position:fixed;inset:0;z-index:110;background:rgba(25,55,65,.97);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;clip-path:circle(0 at calc(100% - 40px) 40px);transition:clip-path .6s cubic-bezier(.7,0,.3,1);visibility:hidden}
 body.menu-open #mnav{clip-path:circle(150% at calc(100% - 40px) 40px);visibility:visible}
 #mnav a{color:var(--paper);font-family:'Playfair Display',serif;font-size:28px;padding:10px}
 #mnav a em{color:var(--gold);font-style:normal}
@@ -69,61 +70,66 @@ main{position:relative;z-index:10}
 .beat.center{justify-content:center;text-align:center}
 .beat.center .card{max-width:760px}
 .beat.center h1,.beat.center h2,.beat.center p,.kicker{text-shadow:0 2px 24px rgba(6,13,10,.85),0 1px 4px rgba(6,13,10,.7)}
-.glass{background:rgba(10,22,17,.55);backdrop-filter:blur(14px);border:1px solid rgba(200,164,92,.22);border-radius:22px;padding:clamp(24px,3.4vw,42px)}
-.kicker{color:var(--gold2);letter-spacing:.32em;font-size:11px;text-transform:uppercase;font-weight:800;margin-bottom:14px}
+.glass{background:var(--parch);color:var(--slate);border:1px solid var(--hairD);border-radius:2px;padding:clamp(28px,3.6vw,48px)}
+.glass h2{color:var(--slate)}
+.glass p{color:rgba(25,55,65,.78)}
+.glass .kicker{color:var(--goldD)}
+.kicker{color:var(--gold);letter-spacing:.167em;font-size:12px;text-transform:uppercase;font-weight:600;margin-bottom:16px}
 .beat h1{font-size:clamp(38px,6.4vw,76px);line-height:1.05;font-weight:600}
 .beat h1 em,.beat h2 em{font-style:italic;color:var(--gold2)}
 .beat h2{font-size:clamp(28px,4vw,48px);line-height:1.12;margin-bottom:14px}
 .beat p{color:rgba(250,247,241,.82);line-height:1.7;font-size:clamp(14.5px,1.3vw,17px)}
 .beat .cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
-.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
-.chips span{border:1px solid var(--line);border-radius:40px;padding:8px 16px;font-size:12.5px;font-weight:700;color:var(--gold2)}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.chips span{border:1px solid var(--hairD);border-radius:80px;padding:8px 18px;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--slate)}
+.beat.center .chips span{border-color:var(--hair);color:#fff}
 .scroll-hint{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);color:rgba(250,247,241,.65);font-size:10.5px;letter-spacing:.34em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:10px}
 .scroll-hint:after{content:'';width:1px;height:46px;background:linear-gradient(var(--gold),transparent);animation:drip 1.8s infinite}
 @keyframes drip{0%{transform:scaleY(0);transform-origin:top}55%{transform:scaleY(1);transform-origin:top}56%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 
 /* ценники вилл (проецируются из 3D) */
-.tag3d{position:fixed;z-index:20;transform:translate(-50%,-120%);background:rgba(10,22,17,.8);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:14px;padding:10px 16px;pointer-events:none;opacity:0;transition:opacity .4s;white-space:nowrap}
-.tag3d b{display:block;font-family:'Playfair Display',serif;color:var(--gold2);font-size:17px;font-weight:600}
-.tag3d span{font-size:11px;color:rgba(250,247,241,.75);letter-spacing:.06em}
+.tag3d{position:fixed;z-index:20;transform:translate(-50%,-120%);background:var(--parch);border:1px solid var(--hairD);border-radius:2px;padding:10px 16px;pointer-events:none;opacity:0;transition:opacity .4s;white-space:nowrap}
+.tag3d b{display:block;font-family:'Playfair Display',serif;color:var(--slate);font-size:17px;font-weight:600}
+.tag3d span{font-size:10.5px;color:rgba(25,55,65,.7);letter-spacing:.1em;text-transform:uppercase}
 .tag3d:after{content:'';position:absolute;left:50%;bottom:-14px;transform:translateX(-50%);width:1px;height:14px;background:var(--gold)}
 
 /* виллы: карточки форматов */
 .v-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
-.v-mini{background:rgba(10,22,17,.6);border:1px solid rgba(200,164,92,.24);border-radius:16px;padding:20px;backdrop-filter:blur(10px)}
-.v-mini .vn{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);font-weight:700}
-.v-mini h3{font-size:19px;margin:6px 0 2px}
-.v-mini .pr{font-family:'Playfair Display',serif;color:var(--gold2);font-size:22px;margin-bottom:8px}
-.v-mini small{color:rgba(250,247,241,.65);font-size:12.5px;line-height:1.5;display:block}
+.v-mini{background:#fff;border:1px solid var(--hairD);border-radius:2px;padding:22px}
+.v-mini .vn{font-size:10.5px;letter-spacing:.167em;text-transform:uppercase;color:var(--goldD);font-weight:600}
+.v-mini h3{font-size:19px;margin:8px 0 2px;color:var(--slate)}
+.v-mini .pr{font-family:'Playfair Display',serif;color:var(--slate);font-size:24px;margin-bottom:8px}
+.v-mini small{color:rgba(25,55,65,.65);font-size:12.5px;line-height:1.5;display:block}
 
 /* сделка */
 .docs{display:flex;flex-direction:column;gap:14px;margin-top:22px}
 .docs .d{display:flex;gap:14px;align-items:flex-start}
-.docs .n{font-family:'Playfair Display',serif;color:var(--gold);min-width:30px;font-size:17px}
-.docs b{display:block;font-size:15.5px;margin-bottom:3px}
-.docs p{font-size:13.5px;color:rgba(250,247,241,.7);line-height:1.55}
+.docs .n{font-family:'Playfair Display',serif;color:var(--goldD);min-width:30px;font-size:17px}
+.docs b{display:block;font-size:15.5px;margin-bottom:3px;color:var(--slate)}
+.docs p{font-size:13.5px;color:rgba(25,55,65,.72);line-height:1.55}
 
 /* форма */
-.form input{width:100%;background:rgba(12,26,21,.65);border:1px solid rgba(250,247,241,.2);color:var(--paper);border-radius:12px;padding:15px 17px;font-size:15px;margin-bottom:12px;font-family:inherit}
-.form input:focus{outline:none;border-color:var(--gold)}
-.form input::placeholder{color:rgba(250,247,241,.45)}
+.form input{width:100%;background:#fff;border:1px solid var(--hairD);color:var(--slate);border-radius:2px;padding:15px 17px;font-size:15px;margin-bottom:12px;font-family:inherit}
+.form input:focus{outline:none;border-color:var(--slate)}
+.form input::placeholder{color:rgba(25,55,65,.45)}
 .form .btn{width:100%;justify-content:center}
-.form small{display:block;color:rgba(250,247,241,.5);font-size:11.5px;line-height:1.5;margin-top:12px;text-align:center}
+.form small{display:block;color:rgba(25,55,65,.55);font-size:11.5px;line-height:1.5;margin-top:12px;text-align:center}
 .form small a{text-decoration:underline}
 .msgr{display:flex;gap:12px;margin-top:16px}
-.msgr a{flex:1;text-align:center;padding:13px;border-radius:12px;border:1px solid rgba(250,247,241,.28);font-weight:700;font-size:13.5px;display:flex;align-items:center;justify-content:center;min-height:44px}
-.msgr a:hover{border-color:var(--gold);color:var(--gold2)}
+.msgr a{flex:1;text-align:center;padding:13px;border-radius:80px;border:1px solid var(--hairD);font-weight:600;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);display:flex;align-items:center;justify-content:center;min-height:44px;transition:background .35s,color .35s}
+.msgr a:hover{background:var(--slate);color:#fff}
 
 /* хвост: FAQ и футер на твёрдом фоне */
-.tail{position:relative;z-index:10;background:#0a1512;border-top:1px solid rgba(200,164,92,.18)}
+.tail{position:relative;z-index:10;background:var(--parch);color:var(--slate);border-top:1px solid var(--hairD)}
+.tail .kicker{color:var(--goldD)}
 .tail .wrap{max-width:900px;margin:0 auto;padding:clamp(60px,8vw,100px) clamp(18px,5vw,48px)}
-.faq details{border-bottom:1px solid rgba(250,247,241,.12)}
+.faq details{border-bottom:1px solid var(--hairD)}
 .faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:22px 4px;font-weight:700;font-size:16px;min-height:44px}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary .x{flex:0 0 28px;height:28px;border-radius:50%;border:1px solid var(--gold);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:16px;transition:transform .35s}
+.faq summary .x{flex:0 0 28px;height:28px;border-radius:50%;border:1px solid var(--slate);color:var(--slate);display:flex;align-items:center;justify-content:center;font-size:16px;transition:transform .35s}
 .faq details[open] summary .x{transform:rotate(45deg)}
-.faq .a{color:rgba(250,247,241,.7);line-height:1.7;font-size:14.5px;padding:0 40px 22px 4px}
-footer{padding:40px;text-align:center;font-size:13px;line-height:2;color:rgba(250,247,241,.65)}
+.faq .a{color:rgba(25,55,65,.75);line-height:1.7;font-size:14.5px;padding:0 40px 22px 4px}
+footer{padding:56px 40px;text-align:center;font-size:13px;line-height:2;background:var(--slate);color:rgba(255,255,255,.7)}
 footer img{height:24px;margin:0 auto 10px;display:block}
 footer a{color:var(--gold2)}
 
@@ -158,7 +164,7 @@ footer a{color:var(--gold2)}
   <a href="#top" aria-label="DOMA"><img src="img/logo-white.svg" alt="DOMA"></a>
   <nav>
     <a href="#about">О проекте</a><a href="#villas">Виллы</a><a href="#law">Условия</a><a href="#faq">Вопросы</a>
-    <a class="btn gold" href="#lead" style="padding:11px 20px">Презентация</a>
+    <a class="btn ghost" href="#lead" style="padding:10px 22px">Презентация</a>
   </nav>
   <button id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
 </header>
@@ -179,8 +185,8 @@ footer a{color:var(--gold2)}
       <h1>Пролетите над <em>Mirador</em> — до того, как он построен</h1>
       <p style="margin-top:18px">Шесть вилл от $129 000 над каньоном Убуда. Земля в жилой зоне, leasehold 40 лет, сдача — сентябрь 2027. Скрольте — дрон уже в воздухе.</p>
       <div class="cta" style="justify-content:center">
-        <a class="btn gold" href="#lead">Получить презентацию →</a>
-        <a class="btn ghost" href="#villas">К виллам</a>
+        <a class="btn ghost" href="#lead">Получить презентацию</a>
+        <a class="btn ghost" style="border-color:rgba(255,255,255,.4)" href="#villas">К виллам</a>
       </div>
     </div>
     <div class="scroll-hint">скролл — это штурвал</div>
@@ -299,7 +305,7 @@ setTimeout(()=>{if(document.getElementById('veil'))dropVeil()},6000); /* стр�
 
 /* ---------- фолбэк без WebGL ---------- */
 if(!webgl || reduced){
-  document.getElementById('world').style.background='linear-gradient(175deg,#0c1a16 0%,#12302a 40%,#1d4a35 70%,#0f1e1a 100%)';
+  document.getElementById('world').style.background='linear-gradient(175deg,#12303a 0%,#1d4450 45%,#26505c 72%,#122a34 100%)';
   document.querySelectorAll('.beat .card').forEach(c=>{c.style.opacity=1;c.style.transform='none'});
   dropVeil();
 }
@@ -344,7 +350,7 @@ gGeo.rotateX(-Math.PI/2);
 {
   const pos=gGeo.attributes.position;
   const col=[];
-  const cJungle=new THREE.Color('#2e6247'),cDeep=new THREE.Color('#1c4634'),cRock=new THREE.Color('#5a5344'),cSand=new THREE.Color('#8a7a58');
+  const cJungle=new THREE.Color('#2a5c55'),cDeep=new THREE.Color('#1a4245'),cRock=new THREE.Color('#4e5a5e'),cSand=new THREE.Color('#8c7f62');
   for(let i=0;i<pos.count;i++){
     const x=pos.getX(i),z=pos.getZ(i);
     const h=ground(x,z);
@@ -352,7 +358,7 @@ gGeo.rotateX(-Math.PI/2);
     let c=cJungle.clone().lerp(cDeep,Math.min(1,Math.max(0,(12-h)/26)));
     if(h<-22)c=cRock.clone().lerp(cSand,vnoise(x*.05,z*.05)*.7);
     const dP=Math.hypot(x-plateau.x,z-plateau.z);
-    if(dP<plateau.r*.9)c=new THREE.Color('#3a6b4a').lerp(cJungle,.4);
+    if(dP<plateau.r*.9)c=new THREE.Color('#396b5f').lerp(cJungle,.4);
     col.push(c.r,c.g,c.b);
   }
   gGeo.setAttribute('color',new THREE.Float32BufferAttribute(col,3));
@@ -371,15 +377,15 @@ scene.add(new THREE.Mesh(gGeo,gMat));
   for(let i=0;i<pts.length-1;i++){const a=i*2;idx.push(a,a+1,a+2,a+1,a+3,a+2)}
   riverGeo.setAttribute('position',new THREE.Float32BufferAttribute(v,3));
   riverGeo.setIndex(idx);riverGeo.computeVertexNormals();
-  const riverMat=new THREE.MeshStandardMaterial({color:'#1b4a52',metalness:.75,roughness:.25,emissive:'#0d2b30',emissiveIntensity:.4});
+  const riverMat=new THREE.MeshStandardMaterial({color:'#1d5560',metalness:.75,roughness:.25,emissive:'#0e2f38',emissiveIntensity:.4});
   scene.add(new THREE.Mesh(riverGeo,riverMat));
 }
 
 /* --- рисовые террасы --- */
 {
   const hill={x:-90,z:-120};
-  const tMat=new THREE.MeshLambertMaterial({color:'#4d8a55',flatShading:true});
-  const wMat=new THREE.MeshStandardMaterial({color:'#5f9f8f',metalness:.5,roughness:.4});
+  const tMat=new THREE.MeshLambertMaterial({color:'#47836b',flatShading:true});
+  const wMat=new THREE.MeshStandardMaterial({color:'#63a49b',metalness:.5,roughness:.4});
   for(let i=0;i<6;i++){
     const r=52-i*7.5;
     const g=new THREE.CylinderGeometry(r,r+2.5,3,26,1);
@@ -404,7 +410,7 @@ function scatter(count,test){
 const dummy=new THREE.Object3D();
 {
   const canopyGeo=new THREE.ConeGeometry(4.6,10,6);
-  const canopyMat=new THREE.MeshLambertMaterial({color:'#245c3f',flatShading:true});
+  const canopyMat=new THREE.MeshLambertMaterial({color:'#215249',flatShading:true});
   const spots=scatter(mobile?260:420,(x,z,h)=>h>-4&&Math.abs(z-canyonZ(x))>34&&Math.hypot(x-plateau.x,z-plateau.z)>plateau.r*.95&&Math.hypot(x+90,z+120)>62);
   const inst=new THREE.InstancedMesh(canopyGeo,canopyMat,spots.length);
   spots.forEach((p,i)=>{
@@ -417,7 +423,7 @@ const dummy=new THREE.Object3D();
   scene.add(inst);
   /* пальмы у каньона: сферы-кроны */
   const pGeo=new THREE.SphereGeometry(3.2,5,4);
-  const pMat=new THREE.MeshLambertMaterial({color:'#3d7a50',flatShading:true});
+  const pMat=new THREE.MeshLambertMaterial({color:'#37705f',flatShading:true});
   const pSpots=scatter(mobile?90:150,(x,z,h)=>{const d=Math.abs(z-canyonZ(x));return d>26&&d<44&&h>-14});
   const pInst=new THREE.InstancedMesh(pGeo,pMat,pSpots.length);
   pSpots.forEach((p,i)=>{
@@ -432,17 +438,17 @@ const dummy=new THREE.Object3D();
 /* --- виллы --- */
 const villaWindows=[];
 const villaGroup=new THREE.Group();
-const wallMat=new THREE.MeshLambertMaterial({color:'#e9e0cc',flatShading:true});
-const roofMat=new THREE.MeshLambertMaterial({color:'#20332a',flatShading:true});
-const deckMat=new THREE.MeshLambertMaterial({color:'#b59b6d',flatShading:true});
-const poolMat=new THREE.MeshStandardMaterial({color:'#2e8a96',metalness:.6,roughness:.25,emissive:'#12444c',emissiveIntensity:.5});
+const wallMat=new THREE.MeshLambertMaterial({color:'#ebe7e1',flatShading:true});
+const roofMat=new THREE.MeshLambertMaterial({color:'#193741',flatShading:true});
+const deckMat=new THREE.MeshLambertMaterial({color:'#c8b48e',flatShading:true});
+const poolMat=new THREE.MeshStandardMaterial({color:'#2f8fa0',metalness:.6,roughness:.25,emissive:'#124450',emissiveIntensity:.5});
 function makeVilla(big){
   const g=new THREE.Group();
   const w=big?11:8,d=big?9:7;
   const f1=new THREE.Mesh(new THREE.BoxGeometry(w,3.2,d),wallMat);f1.position.y=1.6;g.add(f1);
   const f2=new THREE.Mesh(new THREE.BoxGeometry(w*.86,3,d*.86),wallMat);f2.position.y=4.7;g.add(f2);
   const roof=new THREE.Mesh(new THREE.BoxGeometry(w*1.12,.35,d*1.12),roofMat);roof.position.y=6.4;g.add(roof);
-  const winMat=new THREE.MeshStandardMaterial({color:'#223c33',emissive:'#ffca7a',emissiveIntensity:0});
+  const winMat=new THREE.MeshStandardMaterial({color:'#1d414d',emissive:'#eac486',emissiveIntensity:0});
   const win1=new THREE.Mesh(new THREE.BoxGeometry(w*.7,1.6,.15),winMat);win1.position.set(0,1.8,d/2+.08);g.add(win1);
   const win2=new THREE.Mesh(new THREE.BoxGeometry(w*.55,1.4,.15),winMat);win2.position.set(0,4.8,d*.86/2+.08);g.add(win2);
   villaWindows.push(winMat);
@@ -497,16 +503,16 @@ const flies=makePoints(mobile?50:90,90,plateau.y+2,plateau.y+14,1.6,'#ffd98a');
 flies.position.set(plateau.x,0,plateau.z);scene.add(flies);
 
 /* туман и фон */
-scene.fog=new THREE.Fog('#1d3b2f',60,520);
+scene.fog=new THREE.Fog('#26505c',60,520);
 
 /* --- палитры времени суток --- */
 const phases=[
-  {t:0.00,sky:'#1b3a30',fog:'#2c5646',sun:'#ffd9a0',sunI:1.15,amb:.68,moon:0,sunPos:[210,34,-40],glow:1.1},
-  {t:0.30,sky:'#22463a',fog:'#356252',sun:'#ffe9c0',sunI:1.3,amb:.78,moon:0,sunPos:[160,130,-20],glow:.85},
-  {t:0.55,sky:'#2b3a2e',fog:'#3d4c38',sun:'#ffcf8e',sunI:1.15,amb:.65,moon:0,sunPos:[120,100,-60],glow:.9},
-  {t:0.75,sky:'#3a2b23',fog:'#4a3527',sun:'#ff9a5c',sunI:.85,amb:.45,moon:.05,sunPos:[220,34,-120],glow:1.15},
-  {t:0.92,sky:'#0c1a20',fog:'#12232a',sun:'#ff7a4a',sunI:.12,amb:.3,moon:.5,sunPos:[300,6,-160],glow:.35},
-  {t:1.00,sky:'#080f14',fog:'#0d1a20',sun:'#ff7a4a',sunI:0,amb:.26,moon:.65,sunPos:[320,-8,-170],glow:0},
+  {t:0.00,sky:'#16333e',fog:'#26505c',sun:'#eac486',sunI:1.15,amb:.7,moon:0,sunPos:[210,34,-40],glow:1.1},
+  {t:0.30,sky:'#1d4450',fog:'#2f5d6a',sun:'#f2d8a8',sunI:1.3,amb:.8,moon:0,sunPos:[160,130,-20],glow:.85},
+  {t:0.55,sky:'#24444a',fog:'#38585c',sun:'#eec894',sunI:1.15,amb:.66,moon:0,sunPos:[120,100,-60],glow:.9},
+  {t:0.75,sky:'#35333a',fog:'#4a4038',sun:'#e8a05c',sunI:.85,amb:.45,moon:.05,sunPos:[220,34,-120],glow:1.15},
+  {t:0.92,sky:'#0d1e28',fog:'#132832',sun:'#e08a4e',sunI:.12,amb:.3,moon:.5,sunPos:[300,6,-160],glow:.35},
+  {t:1.00,sky:'#091520',fog:'#0d1c26',sun:'#e08a4e',sunI:0,amb:.26,moon:.65,sunPos:[320,-8,-170],glow:0},
 ];
 const cA=new THREE.Color(),cB=new THREE.Color();
 function applyPhase(t){
