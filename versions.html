@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mirador Villas — три концепта лендинга</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23193741'/><text x='50' y='72' font-size='60' text-anchor='middle' fill='%23eac486' font-family='Georgia'>M</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--slate:#193741;--gold:#eac486;--goldD:#a97c3c;--parch:#ebe7e1;--hairD:rgba(25,55,65,.25)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Manrope',sans-serif;background:var(--parch);color:var(--slate);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+header{background:var(--slate);color:#fff;padding:60px clamp(18px,5vw,60px) 70px;text-align:center}
+header img{height:30px;margin:0 auto 26px;display:block}
+.kicker{color:var(--gold);letter-spacing:.167em;font-size:12px;text-transform:uppercase;font-weight:600;margin-bottom:14px}
+h1{font-family:'Playfair Display',serif;font-weight:600;font-size:clamp(30px,4.6vw,52px);line-height:1.1}
+h1 em{font-style:italic;color:var(--gold)}
+header p{color:rgba(255,255,255,.75);max-width:56ch;margin:16px auto 0;line-height:1.65;font-size:15px}
+.grid{max-width:1200px;margin:-30px auto 0;padding:0 clamp(18px,4vw,48px) 80px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px;position:relative;z-index:2}
+.card{background:#fff;border:1px solid var(--hairD);border-radius:2px;display:flex;flex-direction:column;overflow:hidden}
+.prev{position:relative;aspect-ratio:16/10;background:#12303a;overflow:hidden}
+.prev iframe{position:absolute;top:0;left:0;width:400%;height:400%;transform:scale(.25);transform-origin:0 0;border:0;pointer-events:none}
+.prev .tap{position:absolute;inset:0;z-index:2}
+.body{padding:26px 24px 28px;display:flex;flex-direction:column;gap:12px;flex:1}
+.n{font-family:'Playfair Display',serif;color:var(--goldD);font-size:15px;letter-spacing:.2em}
+.card h2{font-family:'Playfair Display',serif;font-weight:600;font-size:23px;line-height:1.15}
+.card p{color:rgba(25,55,65,.75);font-size:14px;line-height:1.65;flex:1}
+.tags{display:flex;gap:8px;flex-wrap:wrap}
+.tags span{border:1px solid var(--hairD);border-radius:80px;padding:5px 12px;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 26px;border-radius:80px;font-weight:600;font-size:11.5px;letter-spacing:.167em;text-transform:uppercase;border:1.5px solid var(--slate);color:var(--slate);transition:background .3s,color .3s;margin-top:6px}
+.btn:hover{background:var(--slate);color:#fff}
+.note{max-width:1200px;margin:0 auto;padding:0 clamp(18px,4vw,48px) 70px;color:rgba(25,55,65,.6);font-size:13px;line-height:1.7;text-align:center}
+footer{background:var(--slate);color:rgba(255,255,255,.65);text-align:center;padding:36px;font-size:12.5px}
+footer a{color:var(--gold)}
+@media(max-width:1000px){.grid{grid-template-columns:1fr;max-width:520px}.prev iframe{display:none}.prev:after{content:'превью — по кнопке ниже';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:12px;letter-spacing:.15em;text-transform:uppercase}}
+</style>
+</head>
+<body>
+
+<header>
+  <img src="img/logo-white.svg" alt="DOMA">
+  <div class="kicker">Mirador Villas · выбор концепта</div>
+  <h1>Один проект — <em>три лендинга</em></h1>
+  <p>Три живых варианта на реальном домене. Открывайте каждый, скролльте до конца — вся анимация управляется скроллом. Контент, форма и SEO во всех версиях одинаковые.</p>
+</header>
+
+<div class="grid">
+
+  <div class="card">
+    <div class="prev"><iframe src="/" loading="lazy" tabindex="-1" title="Скролл-кино"></iframe><a class="tap" href="/" target="_blank" aria-label="Открыть скролл-кино"></a></div>
+    <div class="body">
+      <div class="n">01</div>
+      <h2>Скролл-кино + видео-герой</h2>
+      <p>Классическая продающая структура, разогнанная GSAP: в шапке — AI-видео облёта виллы (Kling 3.0), дальше золотой чертёж строит виллу прямо при скролле, счётчики оживают, лента «10 причин DOMA» едет горизонтально. Самый безопасный для рекламы: быстрый, лёгкий на мобиле.</p>
+      <div class="tags"><span>Видео Kling 3.0</span><span>Чертёж-стройка</span><span>Лёгкий на мобиле</span></div>
+      <a class="btn" href="/" target="_blank">Открыть →</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="prev"><iframe src="/v2" loading="lazy" tabindex="-1" title="Полёт дрона"></iframe><a class="tap" href="/v2" target="_blank" aria-label="Открыть полёт дрона"></a></div>
+    <div class="body">
+      <div class="n">02</div>
+      <h2>Полёт дрона над Убудом</h2>
+      <p>Весь сайт — один 3D-мир: каньон с рекой, рисовые террасы, джунгли и шесть вилл, отрисованные кодом. Скролл ведёт камеру как дрон — от рассвета к ночи, над виллами всплывают цены, в финале в окнах загорается свет. Максимальный вау-эффект и ощущение локации.</p>
+      <div class="tags"><span>Three.js мир</span><span>Рассвет → ночь</span><span>Цены в 3D</span></div>
+      <a class="btn" href="/v2" target="_blank">Открыть →</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="prev"><iframe src="/v3" loading="lazy" tabindex="-1" title="Вилла из света"></iframe><a class="tap" href="/v3" target="_blank" aria-label="Открыть виллу из света"></a></div>
+    <div class="body">
+      <div class="n">03</div>
+      <h2>Вилла из света</h2>
+      <p>25 000 золотых частиц пересобираются по скроллу: MIRADOR → силуэт виллы с бассейном → генплан шести участков → $129 000 → дата ключей → монограмма. Частицы разбегаются от курсора. Самый «арт»-вариант — премиально, магично, ни у кого такого нет.</p>
+      <div class="tags"><span>25k частиц</span><span>Морфинг фигур</span><span>Реакция на курсор</span></div>
+      <a class="btn" href="/v3" target="_blank">Открыть →</a>
+    </div>
+  </div>
+
+</div>
+
+<div class="note">Все три версии живут на mirador.domabali.com — «/», «/v2» и «/v3». Дизайн-система общая: сланцевый тил, медовое золото, пергамент (по референсу BelArosa Chalet). Любую версию можно назначить главной — это одна замена файла.</div>
+
+<footer>Mirador Villas — проект компании <a href="https://doma-build.com">DOMA</a> · страница для внутренней презентации</footer>
+
+</body>
+</html>
